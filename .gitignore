@@ -1,0 +1,12 @@
+# Node modules (none)
+node_modules/
+
+# Python cache
+__pycache__/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/

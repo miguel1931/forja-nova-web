@@ -1,55 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forja Nova - Portal</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FORJA NOVA | FORTALEZA DIGITAL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="hero">
-    <div class="container">
-      <h1>Forja Nova</h1>
-      <p><strong>FOC I FERRO, CARN I CODI</strong></p>
-      <p>Bienvenido a la Base de Operaciones de SMD en Latveria. Esta web sirve como centro de estado, cronologías y recursos de la Forja Nova.</p>
-      <a class="btn" href="#status">Ver estado</a>
-    </div>
-  </header>
+<body class="doom-theme">
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+    
+    <header class="hero fortress-gate">
+        <div class="container">
+            <h1 class="glitch-text" data-text="FORJA NOVA">FORJA NOVA</h1>
+            <div class="motto">
+                <span class="motto-text">FOC I FERRO, CARN I CODI</span>
+            </div>
+            <p class="hero-description">Base de Operaciones de SMD en Latveria. Control de estado, cronologías y recursos de la Gran Forja.</p>
+        </div>
+    </header>
 
-  <main class="container">
-    <section id="status" class="card">
-      <h2>Estado actual</h2>
-      <ul>
-        <li><strong>Iniciativa:</strong> Ruptura dimensional en curso</li>
-        <li><strong>Progreso del proyecto:</strong> 85%</li>
-        <li><strong>Última actualización:</strong> 19-mar-2026</li>
-      </ul>
-    </section>
+    <main class="container main-content">
+        <div class="grid-layout">
+            <section id="status" class="card fortress-card">
+                <div class="card-header">
+                    <span class="icon">⚡</span>
+                    <h2>ESTADO DEL SISTEMA</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="status-list">
+                        <li><span class="label">INICIATIVA:</span> <span class="value accent">Ruptura dimensional</span></li>
+                        <li><span class="label">PROGRESO:</span> <span class="value pulse">85% COMPLETE</span></li>
+                        <li><span class="label">SINC:</span> <span class="value">19-MAR-2026</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer-glitch"></div>
+            </section>
 
-    <section class="card">
-      <h2>Objetivos de Forja Nova</h2>
-      <ol>
-        <li>Centralizar documentación de la Forja</li>
-        <li>Automatizar extracción de chats de piloto</li>
-        <li>Generar campañas de social media semanales</li>
-      </ol>
-    </section>
+            <section class="card fortress-card">
+                <div class="card-header">
+                    <span class="icon">⚔️</span>
+                    <h2>OBJETIVOS ESTRATÉGICOS</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="objective-list">
+                        <li>Centralizar documentación de la Forja</li>
+                        <li>Automatizar extracción de chats de piloto</li>
+                        <li>Generar campañas de social media semanales</li>
+                    </ul>
+                </div>
+            </section>
 
-    <section class="card">
-      <h2>Recursos</h2>
-      <ul>
-        <li><a href="">doom-chronicles</a></li>
-        <li><a href="../Idiomas/mazoCat/README.md">Proyecto MazoCat</a></li>
-        <li><a href="https://mazo-iglesias.vercel.app/">Proyecto Mazo Iglesias</a></li>
-      </ul>
-      <p>Contacto: <a href="mailto:forjanova@protonmail.com">forjanova@protonmail.com</a></p>
-    </section>
-  </main>
+            <section class="card fortress-card resources">
+                <div class="card-header">
+                    <span class="icon">📜</span>
+                    <h2>ARCHIVOS Y RECURSOS</h2>
+                </div>
+                <div class="card-body">
+                    <div class="links-terminal">
+                        <a href="" class="terminal-link">> doom-chronicles</a>
+                        <a href="../Idiomas/mazoCat/README.md" class="terminal-link">> Proyecto MazoCat</a>
+                        <a href="https://mazo-iglesias.vercel.app/" class="terminal-link">> Proyecto Mazo Iglesias</a>
+                    </div>
+                    <div class="contact-terminal">
+                        <p>COMMS: <a href="mailto:forjanova@protonmail.com">forjanova@protonmail.com</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-  <footer>
-    <p>Forja Nova &copy; 2026 - Proyecto de Miguel </p>
-  </footer>
+    <footer class="fortress-footer">
+        <div class="container">
+            <p>FORJA NOVA &copy; 2026 | SECTOR LATVERIA | PROYECTO MIGUEL</p>
+        </div>
+    </footer>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

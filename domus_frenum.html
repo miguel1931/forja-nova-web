@@ -11,16 +11,7 @@
 <meta property="og:description" content="Una crónica de los Novem Frena y Veriax-Kael, la casa infernal leal al Mechanicum.">
 <meta property="og:type" content="article">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EPM1E2J76Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EPM1E2J76Y');
-</script>
-<!-- Fin Google Analytics -->
+<!-- Google Analytics se carga dinámicamente si se aceptan las cookies (GDPR) -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -544,5 +535,51 @@ body::before {
   <a href="index.html" class="forja-link">← Volver a la Forja</a>
 </footer>
 
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(13, 14, 15, 0.95); border-top: 1px solid #c9a84c; padding: 20px; text-align: center; z-index: 9999; color: #d4c5a0; font-family: 'Share Tech Mono', monospace; font-size: 14px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
+    <span style="color: #c9a84c;">// AVISO DEL MECHANICUM:</span> Esta Forja utiliza cookies (Google Analytics) para analizar el tráfico de datos. ¿Das tu consentimiento para el seguimiento?
+    <div style="margin-top: 15px;">
+        <button id="accept-cookies" style="padding: 8px 20px; background: #c9a84c; color: #0d0e0f; border: 1px solid #c9a84c; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Aceptar</button>
+        <button id="reject-cookies" style="margin-left: 15px; padding: 8px 20px; background: transparent; color: #8a6f2e; border: 1px solid #8a6f2e; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Rechazar</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const banner = document.getElementById('cookie-banner');
+        if (!localStorage.getItem('cookies_accepted')) {
+            banner.style.display = 'block';
+        } else if (localStorage.getItem('cookies_accepted') === 'true') {
+            loadAnalytics();
+        }
+
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('cookies_accepted', 'true');
+            banner.style.display = 'none';
+            loadAnalytics();
+        });
+
+        document.getElementById('reject-cookies').addEventListener('click', function() {
+            localStorage.setItem('cookies_accepted', 'false');
+            banner.style.display = 'none';
+        });
+
+        function loadAnalytics() {
+            const script1 = document.createElement('script');
+            script1.async = true;
+            script1.src = "https://www.googletagmanager.com/gtag/js?id=G-EPM1E2J76Y";
+            document.head.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.innerHTML = `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-EPM1E2J76Y');
+            `;
+            document.head.appendChild(script2);
+        }
+    });
+</script>
 </body>
 </html>

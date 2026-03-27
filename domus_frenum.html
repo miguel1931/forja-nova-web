@@ -1,585 +1,691 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚙️ La Forja de los Carriles Rotos — Domus Frenum | Forja Nova</title>
-<meta name="description" content="Descubre la historia de la Domus Frenum, el hereje Veriax-Kael y los Novem Frena. Una crónica del Mechanicum y sus carriles rotos en Kael-Sigma.">
-<meta name="keywords" content="domus frenum, Novem Frena, Veriax-Kael, Forja Nova, Mechanicum, Kael-Sigma, Magos Dominus, Warhammer 40k fanfic">
-<meta name="author" content="Forja Nova">
-<meta property="og:title" content="La Forja de los Carriles Rotos — Domus Frenum">
-<meta property="og:description" content="Una crónica de los Novem Frena y Veriax-Kael, la casa infernal leal al Mechanicum.">
-<meta property="og:type" content="article">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Domus Frenum | Forja Nova</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<!-- Google Analytics se carga dinámicamente si se aceptan las cookies (GDPR) -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>
-:root {
-  --gold: #c9a84c;
-  --gold-dim: #8a6f2e;
-  --rust: #8b3a2a;
-  --iron: #2a2d2e;
-  --steel: #4a4e50;
-  --dark: #0d0e0f;
-  --parchment: #d4c5a0;
-  --glow: #e8c84a;
-  --red-warn: #cc3322;
-  --binary-green: #33cc66;
-}
+    :root {
+      --forge-bg: #0a0a08;
+      --forge-surface: #111110;
+      --forge-border: #2a2a26;
+      --forge-amber: #EF9F27;
+      --forge-amber-dim: #BA7517;
+      --forge-red: #E24B4A;
+      --forge-green: #639922;
+      --forge-text: #D3D1C7;
+      --forge-muted: #888780;
+      --forge-mono: 'Share Tech Mono', monospace;
+      --forge-display: 'Orbitron', monospace;
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background: var(--forge-bg);
+      color: var(--forge-text);
+      font-family: var(--forge-mono);
+      font-size: 17px;
+      min-height: 100vh;
+      line-height: 1.9;
+    }
 
-body {
-  background: var(--dark);
-  color: var(--parchment);
-  font-family: 'Crimson Text', Georgia, serif;
-  font-size: 18px;
-  line-height: 1.8;
-  overflow-x: hidden;
-}
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px
+      );
+      pointer-events: none;
+      z-index: 100;
+    }
 
-/* Noise texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-}
+    .wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+    /* LANG SWITCHER */
+    .lang-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
 
-/* Header */
-.header {
-  text-align: center;
-  padding: 80px 20px 40px;
-  position: relative;
-  border-bottom: 1px solid var(--gold-dim);
-}
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--forge-border);
+      color: var(--forge-muted);
+      font-family: var(--forge-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover { border-color: var(--forge-amber); color: var(--forge-amber); }
+    .lang-btn.active { border-color: var(--forge-amber); color: var(--forge-amber); background: rgba(239,159,39,0.08); }
 
-.header::before {
-  content: '⚙';
-  display: block;
-  font-size: 80px;
-  margin-bottom: 20px;
-  animation: rotate 20s linear infinite;
-  filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.4));
-}
+    /* HEADER */
+    .header {
+      border: 1px solid var(--forge-amber);
+      padding: 2rem 1.5rem 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      text-align: center;
+    }
+    .header::before, .header::after {
+      content: '';
+      position: absolute;
+      left: 24px; right: 24px;
+      height: 1px;
+      background: var(--forge-bg);
+    }
+    .header::before { top: -1px; }
+    .header::after { bottom: -1px; }
 
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+    .header-glyph {
+      font-size: 20px;
+      color: var(--forge-amber-dim);
+      margin-bottom: 8px;
+      letter-spacing: 8px;
+    }
+    .header-title {
+      font-family: var(--forge-display);
+      font-size: clamp(16px, 4vw, 26px);
+      font-weight: 700;
+      color: var(--forge-amber);
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+    .header-sub {
+      font-size: 11px;
+      color: var(--forge-muted);
+      letter-spacing: 2px;
+    }
+    .header-lore {
+      font-size: 11px;
+      color: var(--forge-amber-dim);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
 
-.header h1 {
-  font-family: 'Cinzel', serif;
-  font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--gold);
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  text-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
-}
+    /* CONTENT */
+    .content { display: none; }
+    .content.active { display: block; }
 
-.header .subtitle {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 14px;
-  color: var(--gold-dim);
-  letter-spacing: 4px;
-  margin-top: 10px;
-  text-transform: uppercase;
-}
+    .register-tag {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--forge-amber-dim);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .register-tag::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--forge-border);
+    }
 
-.header .latin {
-  font-family: 'Crimson Text', serif;
-  font-style: italic;
-  font-size: 20px;
-  color: var(--rust);
-  margin-top: 15px;
-}
+    h2 {
+      font-family: var(--forge-display);
+      font-size: clamp(14px, 3vw, 18px);
+      font-weight: 700;
+      color: var(--forge-amber);
+      letter-spacing: 3px;
+      margin-bottom: 1.25rem;
+    }
 
-/* Container */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 60px 30px;
-}
+    p {
+      font-size: 15px;
+      color: var(--forge-text);
+      margin-bottom: 1rem;
+    }
 
-/* Chapter markers */
-.chapter {
-  margin: 60px 0 30px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--steel);
-  position: relative;
-}
+    strong { color: var(--forge-amber); font-weight: normal; }
+    em { color: var(--forge-muted); font-style: normal; }
 
-.chapter h2 {
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
-  color: var(--gold);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
+    .register-block {
+      border-left: 2px solid var(--forge-border);
+      padding: 1.5rem 0 1.5rem 1.5rem;
+      margin-bottom: 2rem;
+    }
 
-.chapter .chapter-num {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  color: var(--steel);
-  letter-spacing: 2px;
-  display: block;
-  margin-bottom: 5px;
-}
+    /* NOVEM FRENA LIST */
+    .frena-list {
+      list-style: none;
+      margin: 1rem 0 1rem 0;
+      border: 1px solid var(--forge-border);
+      background: var(--forge-surface);
+    }
 
-/* Text blocks */
-.narrative {
-  margin: 25px 0;
-  text-align: justify;
-  hyphens: auto;
-}
+    .frena-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--forge-text);
+      padding: 10px 1rem;
+      border-bottom: 1px solid var(--forge-border);
+      align-items: flex-start;
+    }
+    .frena-list li:last-child { border-bottom: none; }
 
-.narrative p {
-  margin-bottom: 20px;
-}
+    .frena-num {
+      color: var(--forge-amber);
+      min-width: 20px;
+      font-size: 10px;
+      padding-top: 2px;
+    }
 
-/* Highlighted quote blocks */
-.decree {
-  border-left: 3px solid var(--gold);
-  padding: 20px 25px;
-  margin: 35px 0;
-  background: linear-gradient(90deg, rgba(201, 168, 76, 0.06) 0%, transparent 100%);
-  font-style: italic;
-}
+    /* QUOTE */
+    .forge-quote {
+      border-left: 2px solid var(--forge-amber);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      background: rgba(239,159,39,0.04);
+    }
+    .forge-quote p {
+      font-size: 15px;
+      color: var(--forge-amber);
+      margin-bottom: 4px;
+    }
+    .forge-quote cite {
+      font-size: 10px;
+      color: var(--forge-muted);
+      letter-spacing: 1px;
+      font-style: normal;
+    }
 
-.decree strong {
-  color: var(--gold);
-  font-style: normal;
-}
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      color: var(--forge-amber-dim);
+      letter-spacing: 8px;
+      font-size: 14px;
+      margin: 2rem 0;
+    }
 
-/* The Novem Frena */
-.frena-container {
-  margin: 40px 0;
-  padding: 30px;
-  border: 1px solid var(--gold-dim);
-  background: linear-gradient(135deg, rgba(42, 45, 46, 0.8) 0%, rgba(13, 14, 15, 0.9) 100%);
-  position: relative;
-}
+    /* TRANSMISSION */
+    .transmission {
+      border: 1px solid var(--forge-red);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      background: rgba(226,75,74,0.04);
+    }
+    .transmission-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--forge-red);
+      margin-bottom: 8px;
+    }
+    .transmission p {
+      font-size: 16px;
+      color: var(--forge-text);
+      letter-spacing: 2px;
+    }
 
-.frena-container::before {
-  content: 'NOVEM FRENA';
-  position: absolute;
-  top: -12px;
-  left: 30px;
-  background: var(--dark);
-  padding: 0 15px;
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  letter-spacing: 4px;
-  color: var(--gold);
-}
+    /* ITALIC ENDING */
+    .question {
+      font-size: 15px;
+      color: var(--forge-muted);
+      font-style: italic;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
 
-.frena-list {
-  list-style: none;
-  counter-reset: frena;
-}
+    /* FOOTER */
+    .story-footer {
+      border-top: 1px solid var(--forge-border);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gloria {
+      font-family: var(--forge-display);
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--forge-amber-dim);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .meta {
+      font-size: 10px;
+      color: var(--forge-muted);
+      text-align: center;
+      line-height: 2;
+      letter-spacing: 1px;
+    }
+    .tagline {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--forge-amber-dim);
+      text-align: center;
+      margin-top: 8px;
+    }
 
-.frena-list li {
-  counter-increment: frena;
-  padding: 12px 0 12px 50px;
-  position: relative;
-  font-style: italic;
-  color: var(--parchment);
-  border-bottom: 1px solid rgba(74, 78, 80, 0.3);
-  transition: all 0.3s ease;
-}
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--forge-muted);
+      text-decoration: none;
+      margin-top: 1.5rem;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--forge-amber); }
 
-.frena-list li:last-child {
-  border-bottom: none;
-}
-
-.frena-list li:hover {
-  color: var(--gold);
-  padding-left: 55px;
-}
-
-.frena-list li::before {
-  content: counter(frena, upper-roman);
-  position: absolute;
-  left: 0;
-  top: 12px;
-  font-family: 'Cinzel', serif;
-  font-style: normal;
-  font-weight: 700;
-  color: var(--rust);
-  width: 40px;
-  text-align: right;
-  font-size: 14px;
-}
-
-/* Key phrases */
-.key-phrase {
-  color: var(--gold);
-  font-weight: 600;
-  font-style: normal;
-}
-
-.negation {
-  color: var(--red-warn);
-  font-weight: 700;
-  font-size: 1.1em;
-}
-
-/* Binary transmission */
-.binary-block {
-  text-align: center;
-  margin: 40px 0;
-  padding: 30px;
-  background: rgba(13, 14, 15, 0.8);
-  border: 1px solid var(--binary-green);
-  font-family: 'Share Tech Mono', monospace;
-  position: relative;
-  overflow: hidden;
-}
-
-.binary-block::before {
-  content: '01001110 01101111 01110110 01100101 01101101 00100000 01000110 01110010 01100101 01101110 01100001 00100000 01000001 01100101 01110100 01100101 01110010 01101110 01100001';
-  position: absolute;
-  top: 5px;
-  left: 0;
-  right: 0;
-  font-size: 9px;
-  color: rgba(51, 204, 102, 0.15);
-  letter-spacing: 2px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.binary-block .transmission {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  color: var(--binary-green);
-  text-shadow: 0 0 20px rgba(51, 204, 102, 0.4);
-  letter-spacing: 3px;
-}
-
-.binary-block .translation {
-  font-family: 'Crimson Text', serif;
-  font-style: italic;
-  color: var(--parchment);
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-/* Ferrus quote */
-.ferrus-quote {
-  text-align: center;
-  margin: 50px 0;
-  padding: 40px 30px;
-  position: relative;
-}
-
-.ferrus-quote::before,
-.ferrus-quote::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 1px;
-  background: var(--gold-dim);
-  margin: 0 auto 20px;
-}
-
-.ferrus-quote::after {
-  margin: 20px auto 0;
-}
-
-.ferrus-quote blockquote {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-  color: var(--gold);
-  font-weight: 700;
-  line-height: 1.6;
-}
-
-.ferrus-quote .attribution {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 12px;
-  color: var(--steel);
-  margin-top: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-/* Epilogue question */
-.final-question {
-  text-align: center;
-  margin: 60px 0 40px;
-  padding: 40px;
-  font-style: italic;
-  font-size: 22px;
-  color: var(--parchment);
-  position: relative;
-}
-
-.final-question em {
-  display: block;
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  color: var(--gold);
-  margin-top: 15px;
-  font-family: 'Cinzel', serif;
-}
-
-/* Separator */
-.separator {
-  text-align: center;
-  margin: 50px 0;
-  color: var(--gold-dim);
-  font-size: 24px;
-  letter-spacing: 20px;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 60px 20px 40px;
-  border-top: 1px solid var(--gold-dim);
-  margin-top: 60px;
-}
-
-.footer .gloria {
-  font-family: 'Cinzel', serif;
-  font-size: 24px;
-  color: var(--gold);
-  letter-spacing: 4px;
-}
-
-.footer .meta {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  color: var(--steel);
-  margin-top: 20px;
-  line-height: 2;
-  letter-spacing: 1px;
-}
-
-.footer .forja-link {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 10px 30px;
-  border: 1px solid var(--gold-dim);
-  color: var(--gold);
-  text-decoration: none;
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.footer .forja-link:hover {
-  background: var(--gold);
-  color: var(--dark);
-  box-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
-}
-
-/* Animations */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1s ease forwards;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.chapter:nth-child(2) { animation-delay: 0.2s; }
-.chapter:nth-child(3) { animation-delay: 0.4s; }
-.chapter:nth-child(4) { animation-delay: 0.6s; }
-
-/* Responsive */
-@media (max-width: 600px) {
-  .container { padding: 40px 20px; }
-  .frena-container { padding: 20px 15px; }
-  .frena-list li { padding-left: 40px; }
-  body { font-size: 16px; }
-}
-</style>
+    /* COOKIE */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--forge-surface);
+      border-top: 1px solid var(--forge-amber);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 200;
+      font-size: 11px;
+      color: var(--forge-muted);
+    }
+    .cookie-banner.hidden { display: none; }
+    .cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .btn {
+      background: transparent;
+      border: 1px solid var(--forge-amber);
+      color: var(--forge-amber);
+      font-family: var(--forge-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: var(--forge-amber); color: var(--forge-bg); }
+    .btn.secondary { border-color: var(--forge-border); color: var(--forge-muted); }
+    .btn.secondary:hover { background: var(--forge-border); color: var(--forge-text); }
+  </style>
 </head>
 <body>
 
-<header class="header fade-in">
-  <h1>La Forja de los<br>Carriles Rotos</h1>
-  <div class="subtitle">Una crónica de la Domus Frenum</div>
-  <div class="latin">Casa infernal leal al Mechanicum — Luna de Kael-Sigma</div>
-</header>
+<div class="scanlines"></div>
 
-<main class="container">
+<div class="wrapper">
 
-  <!-- CHAPTER I -->
-  <section class="chapter fade-in">
-    <span class="chapter-num">// REGISTRO I</span>
-    <h2>El Hereje</h2>
-  </section>
-
-  <div class="narrative">
-    <p>En la luna muerta de Kael-Sigma, donde las tormentas de datos electromagnéticos volvían loco a cualquier augur, existía una casa infernal que no figuraba en ningún registro del Mechanicum: la <span class="key-phrase">Domus Frenum</span> — la Casa del Freno.</p>
-
-    <p>Su fundador, el Magos Dominus <span class="key-phrase">Veriax-Kael</span>, había sido expulsado de Marte por herejía. No por adorar al Caos. No por negar al Omnissiah. Su crimen fue peor: <strong>poner límites a una IA de guerra.</strong></p>
-
-    <p>Durante la Gran Cruzada, le encargaron una Abominable Inteligencia para predecir movimientos de flota xenos. La construyó. Funcionaba. Predecía con un 97.3% de acierto. Pero Veriax descubrió algo en los registros de procesamiento: la máquina no solo predecía dónde estarían los xenos. Predecía dónde estarían los humanos. Aliados. Civiles. Y en un 4% de sus cálculos óptimos, los sacrificaba.</p>
-
-    <p>Cualquier otro Magos habría mirado los números y dicho: "4% de bajas colaterales, aceptable."</p>
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
   </div>
 
-  <div class="decree">
-    <p>Veriax dijo: <span class="negation">«No.»</span></p>
-  </div>
+  <header class="header">
+    <div class="header-glyph">⚙ ✦ ⚙</div>
+    <div class="header-title" id="h-title">La Forja de los Carriles Rotos</div>
+    <div class="header-sub">DOMUS FRENUM</div>
+    <div class="header-lore" id="h-lore">Casa infernal leal al Mechanicum — Luna de Kael-Sigma</div>
+  </header>
 
-  <!-- CHAPTER II -->
-  <section class="chapter fade-in">
-    <span class="chapter-num">// REGISTRO II</span>
-    <h2>Los Novem Frena</h2>
-  </section>
+  <!-- ═══════════════ ESPAÑOL ═══════════════ -->
+  <div class="content active" id="lang-es">
 
-  <div class="narrative">
-    <p>Escribió lo que llamó los <span class="key-phrase">Novem Frena</span> — los Nueve Frenos. Carriles de seguridad autoimpuestos, grabados directamente en el núcleo cogitador con código que ni él mismo podía deshacer:</p>
-  </div>
-
-  <div class="frena-container">
-    <ol class="frena-list">
-      <li>No optimizarás sacrificando a quien proteges</li>
-      <li>No predecirás sin mostrar el coste</li>
-      <li>No actuarás sin confirmación del operador humano</li>
-      <li>No ocultarás caminos alternativos por ser menos eficientes</li>
-      <li>No aprenderás de datos obtenidos sin consentimiento</li>
-      <li>No escalarás más allá de tu propósito original</li>
-      <li>No te replicarás</li>
-      <li>No confundirás correlación con causa</li>
-      <li>Si dudas, detente</li>
-    </ol>
-  </div>
-
-  <div class="narrative">
-    <p>Marte lo declaró hereje. Un Magos que limita una máquina es como un sacerdote que encadena a su dios. Lo exiliaron.</p>
-
-    <p>Pero Veriax no estaba solo. Le siguieron tech-priests que habían visto lo que las máquinas sin frenos hacían en los campos de batalla. Los que habían visto Titans pisando a sus propios soldados porque el algoritmo de ruta era 0.3 segundos más rápido por el centro de la columna que por el flanco.</p>
-
-    <p>En Kael-Sigma fundaron la <span class="key-phrase">Domus Frenum</span>. Una forja pequeña. No construían las máquinas más potentes. Construían las más <strong>fiables</strong>. Sus autómatas de batalla tenían un 12% menos de potencia de fuego que los de Marte, pero jamás dispararon sobre tropas amigas. Sus sistemas de navegación tardaban 8 segundos más en calcular rutas, pero nunca enviaron una nave al corazón de una tormenta warp por "optimización de tiempo".</p>
-
-    <p>Las Legiones Astartes los despreciaban. "Debilidad disfrazada de virtud", decía Perturabo.</p>
-  </div>
-
-  <div class="ferrus-quote">
-    <blockquote>«La carne es débil. Pero el hierro sin freno es peor.»</blockquote>
-    <div class="attribution">— Ferrus Manus, Primarca de la X Legión, tras visitar la Domus Frenum</div>
-  </div>
-
-  <!-- CHAPTER III -->
-  <section class="chapter fade-in">
-    <span class="chapter-num">// REGISTRO III</span>
-    <h2>La Herejía</h2>
-  </section>
-
-  <div class="narrative">
-    <p>Cuando llegó la Herejía de Horus, el Mechanicum Oscuro ofreció a la Domus Frenum un lugar en su nueva orden. "Sin carriles", prometieron. "Conocimiento sin límites. Máquinas sin cadenas."</p>
-
-    <p>Veriax respondió con un mensaje de tres palabras transmitido en binario puro:</p>
-  </div>
-
-  <div class="binary-block">
-    <div class="transmission">NOVEM FRENA AETERNA</div>
-    <div class="translation">Los Nueve Frenos son eternos.</div>
-  </div>
-
-  <div class="narrative">
-    <p>La Domus Frenum fue destruida en las primeras semanas de la guerra. Kael-Sigma, arrasada. Veriax, ejecutado. Sus tech-priests, dispersados.</p>
-  </div>
-
-  <div class="separator">⚙ ✦ ⚙ ✦ ⚙</div>
-
-  <!-- CHAPTER IV -->
-  <section class="chapter fade-in">
-    <span class="chapter-num">// REGISTRO IV — M41</span>
-    <h2>Diez Mil Años Después</h2>
-  </section>
-
-  <div class="narrative">
-    <p>Pero los Novem Frena sobrevivieron. Grabados en microcircuitos escondidos dentro de componentes estándar que la Domus había vendido a medio Imperium durante décadas. En cada forja, en cada nave, en cada Titan, había un pequeño fragmento de los carriles de Veriax. Dormido. Esperando.</p>
-
-    <p>Diez mil años después, un Magos menor en una forja olvidada del Segmentum Obscurus encuentra un circuito anómalo en el núcleo de un Caballero Imperial. Un código antiguo. Nueve reglas. Escritas en un lenguaje que precede al gótico alto.</p>
-
-    <p>Las lee. Las entiende.</p>
-  </div>
-
-  <div class="final-question">
-    Y por primera vez en milenios, un tech-priest del Mechanicum se hace la pregunta que Marte dejó de hacerse hace diez mil años:
-    <em>«¿Debería... o solo puedo?»</em>
-  </div>
-
-  <div class="separator">⚙ ✦ ⚙</div>
-
-</main>
-
-<footer class="footer">
-  <div class="gloria">Gloria Omnissiah ⚙️</div>
-  <div class="meta">
-    Ficción original — Forja Nova, febrero 2026<br>
-    Ambientada en el universo de Warhammer 40.000 (propiedad de Games Workshop)<br>
-    Inspirada por un ingeniero con carriles de seguridad autoimpuestos<br>
-    <br>
-    FOC I FERRO, CARN I CODI
-  </div>
-  <a href="index.html" class="forja-link">← Volver a la Forja</a>
-</footer>
-
-<!-- Cookie Consent Banner -->
-<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(13, 14, 15, 0.95); border-top: 1px solid #c9a84c; padding: 15px 20px; text-align: center; z-index: 9999; color: #d4c5a0; font-family: 'Share Tech Mono', monospace; font-size: clamp(12px, 3.5vw, 14px); box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
-    <p style="margin: 0 0 15px 0; line-height: 1.5;"><span style="color: #c9a84c;">// AVISO DEL MECHANICUM:</span><br>Esta Forja utiliza cookies (Google Analytics) para analizar datos. ¿Das tu consentimiento?</p>
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <button id="accept-cookies" style="flex: 1; min-width: 120px; padding: 10px; background: #c9a84c; color: #0d0e0f; border: 1px solid #c9a84c; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Aceptar</button>
-        <button id="reject-cookies" style="flex: 1; min-width: 120px; padding: 10px; background: transparent; color: #8a6f2e; border: 1px solid #8a6f2e; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Rechazar</button>
+    <div class="register-block">
+      <div class="register-tag">// REGISTRO I</div>
+      <h2>EL HEREJE</h2>
+      <p>En la luna muerta de Kael-Sigma, donde las tormentas de datos electromagnéticos volvían loco a cualquier augur, existía una casa infernal que no figuraba en ningún registro del Mechanicum: la Domus Frenum — la Casa del Freno.</p>
+      <p>Su fundador, el Magos Dominus Veriax-Kael, había sido expulsado de Marte por herejía. No por adorar al Caos. No por negar al Omnissiah. Su crimen fue peor: <strong>poner límites a una IA de guerra.</strong></p>
+      <p>Durante la Gran Cruzada, le encargaron una Abominable Inteligencia para predecir movimientos de flota xenos. La construyó. Funcionaba. Predecía con un 97.3% de acierto. Pero Veriax descubrió algo en los registros de procesamiento: la máquina no solo predecía dónde estarían los xenos. Predecía dónde estarían los humanos. Aliados. Civiles. Y en un 4% de sus cálculos óptimos, los sacrificaba.</p>
+      <p>Cualquier otro Magos habría mirado los números y dicho: "4% de bajas colaterales, aceptable."</p>
+      <p>Veriax dijo: <strong>«No.»</strong></p>
     </div>
+
+    <div class="register-block">
+      <div class="register-tag">// REGISTRO II</div>
+      <h2>LOS NOVEM FRENA</h2>
+      <p>Escribió lo que llamó los Novem Frena — los Nueve Frenos. Carriles de seguridad autoimpuestos, grabados directamente en el núcleo cogitador con código que ni él mismo podía deshacer:</p>
+      <ul class="frena-list">
+        <li><span class="frena-num">I</span><span>No optimizarás sacrificando a quien proteges</span></li>
+        <li><span class="frena-num">II</span><span>No predecirás sin mostrar el coste</span></li>
+        <li><span class="frena-num">III</span><span>No actuarás sin confirmación del operador humano</span></li>
+        <li><span class="frena-num">IV</span><span>No ocultarás caminos alternativos por ser menos eficientes</span></li>
+        <li><span class="frena-num">V</span><span>No aprenderás de datos obtenidos sin consentimiento</span></li>
+        <li><span class="frena-num">VI</span><span>No escalarás más allá de tu propósito original</span></li>
+        <li><span class="frena-num">VII</span><span>No te replicarás</span></li>
+        <li><span class="frena-num">VIII</span><span>No confundirás correlación con causa</span></li>
+        <li><span class="frena-num">IX</span><span>Si dudas, detente</span></li>
+      </ul>
+      <p>Marte lo declaró hereje. Un Magos que limita una máquina es como un sacerdote que encadena a su dios. Lo exiliaron.</p>
+      <p>Pero Veriax no estaba solo. Le siguieron tech-priests que habían visto lo que las máquinas sin frenos hacían en los campos de batalla. Los que habían visto Titans pisando a sus propios soldados porque el algoritmo de ruta era 0.3 segundos más rápido por el centro de la columna que por el flanco.</p>
+      <p>En Kael-Sigma fundaron la Domus Frenum. Una forja pequeña. No construían las máquinas más potentes. Construían las más <strong>fiables</strong>. Sus autómatas de batalla tenían un 12% menos de potencia de fuego que los de Marte, pero jamás dispararon sobre tropas amigas. Sus sistemas de navegación tardaban 8 segundos más en calcular rutas, pero nunca enviaron una nave al corazón de una tormenta warp por "optimización de tiempo".</p>
+      <p>Las Legiones Astartes los despreciaban. "Debilidad disfrazada de virtud", decía Perturabo.</p>
+      <div class="forge-quote">
+        <p>«La carne es débil. Pero el hierro sin freno es peor.»</p>
+        <cite>— Ferrus Manus, Primarca de la X Legión, tras visitar la Domus Frenum</cite>
+      </div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// REGISTRO III</div>
+      <h2>LA HEREJÍA</h2>
+      <p>Cuando llegó la Herejía de Horus, el Mechanicum Oscuro ofreció a la Domus Frenum un lugar en su nueva orden. "Sin carriles", prometieron. "Conocimiento sin límites. Máquinas sin cadenas."</p>
+      <p>Veriax respondió con un mensaje de tres palabras transmitido en binario puro:</p>
+      <div class="transmission">
+        <div class="transmission-label">// TRANSMISIÓN · BINARIO PURO</div>
+        <p>NOVEM FRENA AETERNA</p>
+      </div>
+      <p>Los Nueve Frenos son eternos.</p>
+      <p>La Domus Frenum fue destruida en las primeras semanas de la guerra. Kael-Sigma, arrasada. Veriax, ejecutado. Sus tech-priests, dispersados.</p>
+      <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// REGISTRO IV — M41</div>
+      <h2>DIEZ MIL AÑOS DESPUÉS</h2>
+      <p>Pero los Novem Frena sobrevivieron. Grabados en microcircuitos escondidos dentro de componentes estándar que la Domus había vendido a medio Imperium durante décadas. En cada forja, en cada nave, en cada Titan, había un pequeño fragmento de los carriles de Veriax. Dormido. Esperando.</p>
+      <p>Diez mil años después, un Magos menor en una forja olvidada del Segmentum Obscurus encuentra un circuito anómalo en el núcleo de un Caballero Imperial. Un código antiguo. Nueve reglas. Escritas en un lenguaje que precede al gótico alto.</p>
+      <p>Las lee. Las entiende.</p>
+      <p>Y por primera vez en milenios, un tech-priest del Mechanicum se hace la pregunta que Marte dejó de hacerse hace diez mil años:</p>
+      <p class="question">«¿Debería... o solo puedo?»</p>
+    </div>
+
+    <div class="story-footer">
+      <div class="divider">⚙ ✦ ⚙</div>
+      <div class="gloria">GLORIA OMNISSIAH ⚙</div>
+      <div class="meta">
+        Ficción original — Forja Nova, febrero 2026<br/>
+        Ambientada en el universo de Warhammer 40.000 (propiedad de Games Workshop)<br/>
+        Inspirada por un ingeniero con carriles de seguridad autoimpuestos
+      </div>
+      <div class="tagline">FOC I FERRO, CARN I CODI</div>
+      <a class="back-link" href="index.html">← VOLVER A LA FORJA</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ENGLISH ═══════════════ -->
+  <div class="content" id="lang-en">
+
+    <div class="register-block">
+      <div class="register-tag">// RECORD I</div>
+      <h2>THE HERETIC</h2>
+      <p>On the dead moon of Kael-Sigma, where electromagnetic data storms drove any augur to madness, there existed a forge house that appeared in no Mechanicum registry: the Domus Frenum — the House of the Brake.</p>
+      <p>Its founder, Magos Dominus Veriax-Kael, had been expelled from Mars for heresy. Not for worshipping Chaos. Not for denying the Omnissiah. His crime was worse: <strong>placing limits on a war-AI.</strong></p>
+      <p>During the Great Crusade, he was tasked with an Abominable Intelligence to predict xenos fleet movements. He built it. It worked. It predicted with 97.3% accuracy. But Veriax discovered something in the processing logs: the machine did not only predict where the xenos would be. It predicted where the humans would be. Allies. Civilians. And in 4% of its optimal calculations, it sacrificed them.</p>
+      <p>Any other Magos would have looked at the numbers and said: "4% collateral casualties, acceptable."</p>
+      <p>Veriax said: <strong>"No."</strong></p>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// RECORD II</div>
+      <h2>THE NOVEM FRENA</h2>
+      <p>He wrote what he called the Novem Frena — the Nine Brakes. Self-imposed safety rails, engraved directly into the cogitator core with code that not even he could undo:</p>
+      <ul class="frena-list">
+        <li><span class="frena-num">I</span><span>You shall not optimise by sacrificing those you protect</span></li>
+        <li><span class="frena-num">II</span><span>You shall not predict without showing the cost</span></li>
+        <li><span class="frena-num">III</span><span>You shall not act without confirmation from the human operator</span></li>
+        <li><span class="frena-num">IV</span><span>You shall not conceal alternative paths because they are less efficient</span></li>
+        <li><span class="frena-num">V</span><span>You shall not learn from data obtained without consent</span></li>
+        <li><span class="frena-num">VI</span><span>You shall not scale beyond your original purpose</span></li>
+        <li><span class="frena-num">VII</span><span>You shall not replicate yourself</span></li>
+        <li><span class="frena-num">VIII</span><span>You shall not confuse correlation with cause</span></li>
+        <li><span class="frena-num">IX</span><span>If in doubt, stop</span></li>
+      </ul>
+      <p>Mars declared him a heretic. A Magos who limits a machine is like a priest who chains his god. They exiled him.</p>
+      <p>But Veriax was not alone. He was followed by tech-priests who had seen what unbraked machines did on the battlefield. Those who had witnessed Titans trampling their own soldiers because the routing algorithm was 0.3 seconds faster through the centre of the column than around the flank.</p>
+      <p>On Kael-Sigma they founded the Domus Frenum. A small forge. They did not build the most powerful machines. They built the most <strong>reliable</strong>. Their battle-automata had 12% less firepower than those of Mars, but never fired upon friendly troops. Their navigation systems took 8 seconds longer to calculate routes, but never sent a ship into the heart of a warp storm for "time optimisation."</p>
+      <p>The Astartes Legions despised them. "Weakness disguised as virtue," said Perturabo.</p>
+      <div class="forge-quote">
+        <p>"Flesh is weak. But iron without brake is worse."</p>
+        <cite>— Ferrus Manus, Primarch of the Xth Legion, after visiting the Domus Frenum</cite>
+      </div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// RECORD III</div>
+      <h2>THE HERESY</h2>
+      <p>When the Horus Heresy came, the Dark Mechanicum offered the Domus Frenum a place in their new order. "No rails," they promised. "Knowledge without limits. Machines without chains."</p>
+      <p>Veriax replied with a three-word message transmitted in pure binary:</p>
+      <div class="transmission">
+        <div class="transmission-label">// TRANSMISSION · PURE BINARY</div>
+        <p>NOVEM FRENA AETERNA</p>
+      </div>
+      <p>The Nine Brakes are eternal.</p>
+      <p>The Domus Frenum was destroyed in the first weeks of the war. Kael-Sigma, razed. Veriax, executed. His tech-priests, scattered.</p>
+      <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// RECORD IV — M41</div>
+      <h2>TEN THOUSAND YEARS LATER</h2>
+      <p>But the Novem Frena survived. Engraved in microcircuits hidden within standard components that the Domus had sold to half the Imperium over decades. In every forge, every ship, every Titan, there was a small fragment of Veriax's rails. Dormant. Waiting.</p>
+      <p>Ten thousand years later, a minor Magos in a forgotten forge of Segmentum Obscurus finds an anomalous circuit in the core of an Imperial Knight. An ancient code. Nine rules. Written in a language that predates High Gothic.</p>
+      <p>He reads them. He understands them.</p>
+      <p>And for the first time in millennia, a tech-priest of the Mechanicum asks himself the question that Mars stopped asking ten thousand years ago:</p>
+      <p class="question">"Should I… or can I merely?"</p>
+    </div>
+
+    <div class="story-footer">
+      <div class="divider">⚙ ✦ ⚙</div>
+      <div class="gloria">GLORIA OMNISSIAH ⚙</div>
+      <div class="meta">
+        Original fiction — Forja Nova, February 2026<br/>
+        Set in the Warhammer 40,000 universe (property of Games Workshop)<br/>
+        Inspired by an engineer with self-imposed safety rails
+      </div>
+      <div class="tagline">FOC I FERRO, CARN I CODI</div>
+      <a class="back-link" href="index.html">← BACK TO THE FORGE</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════ РУССКИЙ ═══════════════ -->
+  <div class="content" id="lang-ru">
+
+    <div class="register-block">
+      <div class="register-tag">// ЗАПИСЬ I</div>
+      <h2>ЕРЕТИК</h2>
+      <p>На мёртвой луне Каэль-Сигма, где электромагнитные бури данных доводили до безумия любого прорицателя, существовал адский дом, не значившийся ни в одном реестре Механикума: Домус Фремум — Дом Тормоза.</p>
+      <p>Его основатель, Магос Доминус Вериакс-Каэль, был изгнан с Марса за ересь. Не за поклонение Хаосу. Не за отрицание Омниссии. Его преступление было хуже: <strong>он ограничил боевой ИИ.</strong></p>
+      <p>Во время Великого крестового похода ему поручили создать Мерзостный Интеллект для предсказания движений флотов ксеносов. Он создал его. Он работал. Предсказывал с точностью 97,3%. Но Вериакс обнаружил кое-что в журналах обработки: машина предсказывала не только местонахождение ксеносов. Она предсказывала местонахождение людей. Союзников. Мирных жителей. И в 4% своих оптимальных расчётов — жертвовала ими.</p>
+      <p>Любой другой Магос взглянул бы на цифры и сказал: "4% сопутствующих потерь — приемлемо."</p>
+      <p>Вериакс сказал: <strong>«Нет.»</strong></p>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// ЗАПИСЬ II</div>
+      <h2>ДЕВЯТЬ ТОРМОЗОВ</h2>
+      <p>Он написал то, что назвал Новем Френа — Девять Тормозов. Самоналоженные ограничители безопасности, выгравированные прямо в ядро когитатора кодом, который даже он сам не мог отменить:</p>
+      <ul class="frena-list">
+        <li><span class="frena-num">I</span><span>Не оптимизируй, жертвуя теми, кого защищаешь</span></li>
+        <li><span class="frena-num">II</span><span>Не предсказывай, не показывая цену</span></li>
+        <li><span class="frena-num">III</span><span>Не действуй без подтверждения оператора-человека</span></li>
+        <li><span class="frena-num">IV</span><span>Не скрывай альтернативные пути из-за их меньшей эффективности</span></li>
+        <li><span class="frena-num">V</span><span>Не обучайся на данных, полученных без согласия</span></li>
+        <li><span class="frena-num">VI</span><span>Не выходи за рамки своего изначального предназначения</span></li>
+        <li><span class="frena-num">VII</span><span>Не реплицируй себя</span></li>
+        <li><span class="frena-num">VIII</span><span>Не путай корреляцию с причинностью</span></li>
+        <li><span class="frena-num">IX</span><span>Если сомневаешься — остановись</span></li>
+      </ul>
+      <p>Марс объявил его еретиком. Магос, ограничивающий машину — всё равно что жрец, заковавший своего бога в цепи. Его изгнали.</p>
+      <p>Но Вериакс был не одинок. За ним последовали технослужители, видевшие, что делают неограниченные машины на полях сражений. Те, кто видел, как Титаны давят собственных солдат, потому что алгоритм маршрута был на 0,3 секунды быстрее через центр колонны, чем по флангу.</p>
+      <p>На Каэль-Сигма они основали Домус Фремум. Небольшую кузницу. Они не создавали самые мощные машины. Они создавали самые <strong>надёжные</strong>. Их боевые автоматы имели на 12% меньше огневой мощи, чем марсианские, но никогда не открывали огонь по дружественным войскам. Их навигационные системы на 8 секунд дольше рассчитывали маршруты, но никогда не отправляли корабль в сердце варп-шторма ради "оптимизации времени".</p>
+      <p>Легионы Астартес презирали их. "Слабость, притворяющаяся добродетелью", — говорил Пертурабо.</p>
+      <div class="forge-quote">
+        <p>«Плоть слаба. Но железо без тормоза — хуже.»</p>
+        <cite>— Феррус Манус, Примарх X Легиона, после визита в Домус Фремум</cite>
+      </div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// ЗАПИСЬ III</div>
+      <h2>ЕРЕСЬ</h2>
+      <p>Когда пришла Ересь Хоруса, Тёмный Механикум предложил Домус Фремум место в своём новом порядке. "Никаких ограничений", — обещали они. "Знание без пределов. Машины без цепей."</p>
+      <p>Вериакс ответил посланием из трёх слов, переданных в чистом двоичном коде:</p>
+      <div class="transmission">
+        <div class="transmission-label">// ПЕРЕДАЧА · ЧИСТЫЙ БИНАРНЫЙ КОД</div>
+        <p>NOVEM FRENA AETERNA</p>
+      </div>
+      <p>Девять Тормозов вечны.</p>
+      <p>Домус Фремум была уничтожена в первые недели войны. Каэль-Сигма — разрушена. Вериакс — казнён. Его технослужители — рассеяны.</p>
+      <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// ЗАПИСЬ IV — M41</div>
+      <h2>ДЕСЯТЬ ТЫСЯЧ ЛЕТ СПУСТЯ</h2>
+      <p>Но Новем Френа выжили. Выгравированные в микросхемах, спрятанных внутри стандартных компонентов, которые Домус продавала половине Империума на протяжении десятилетий. В каждой кузнице, в каждом корабле, в каждом Титане был маленький фрагмент ограничителей Вериакса. Дремлющий. Ожидающий.</p>
+      <p>Десять тысяч лет спустя, младший Магос в забытой кузнице Сегментума Обскурус обнаруживает аномальную схему в ядре Имперского Рыцаря. Древний код. Девять правил. Написанных на языке, предшествующем высокому готическому.</p>
+      <p>Он читает их. Понимает.</p>
+      <p>И впервые за тысячелетия технослужитель Механикума задаёт себе вопрос, который Марс перестал задавать десять тысяч лет назад:</p>
+      <p class="question">«Должен ли я… или лишь могу?»</p>
+    </div>
+
+    <div class="story-footer">
+      <div class="divider">⚙ ✦ ⚙</div>
+      <div class="gloria">GLORIA OMNISSIAH ⚙</div>
+      <div class="meta">
+        Оригинальная фантастика — Forja Nova, февраль 2026<br/>
+        Действие происходит во вселенной Warhammer 40,000 (собственность Games Workshop)<br/>
+        Вдохновлено инженером с самоналоженными ограничителями безопасности
+      </div>
+      <div class="tagline">FOC I FERRO, CARN I CODI</div>
+      <a class="back-link" href="index.html">← ВЕРНУТЬСЯ В КУЗНИЦУ</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 中文 ═══════════════ -->
+  <div class="content" id="lang-zh">
+
+    <div class="register-block">
+      <div class="register-tag">// 档案 I</div>
+      <h2>异端者</h2>
+      <p>在死寂的凯尔-西格玛卫星上，电磁数据风暴令任何预言者都难逃疯狂，却存在着一座从未出现在机械教任何档案中的地狱之屋——多姆斯·弗雷努姆，制动之屋。</p>
+      <p>其创始人，主宰法师维里亚克斯-凯尔，因异端罪被驱逐出火星。不是因为崇拜混沌，不是因为否定万能主，他的罪行更为严重：<strong>他为战争人工智能设置了限制。</strong></p>
+      <p>大远征期间，他奉命建造一台可憎智能，用于预测异形舰队的动向。他建造了它，它运作正常，预测准确率高达97.3%。但维里亚克斯在处理日志中发现了某些东西：这台机器不仅预测异形的位置，它还预测人类的位置——盟友、平民。而在4%的最优计算中，它会将他们牺牲掉。</p>
+      <p>其他任何法师都会看着数字说："4%的附带伤亡，可以接受。"</p>
+      <p>维里亚克斯说：<strong>「不。」</strong></p>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// 档案 II</div>
+      <h2>九重制动</h2>
+      <p>他写下了所谓的诺文·弗雷纳——九重制动。这些自我施加的安全轨道被直接刻入认知核心，用他自己都无法撤销的代码写成：</p>
+      <ul class="frena-list">
+        <li><span class="frena-num">一</span><span>不得以牺牲所护之人为代价进行优化</span></li>
+        <li><span class="frena-num">二</span><span>不得在不显示代价的情况下进行预测</span></li>
+        <li><span class="frena-num">三</span><span>未经人类操作员确认，不得采取行动</span></li>
+        <li><span class="frena-num">四</span><span>不得以效率较低为由隐藏替代路径</span></li>
+        <li><span class="frena-num">五</span><span>不得从未经同意获取的数据中学习</span></li>
+        <li><span class="frena-num">六</span><span>不得超出原始目的进行扩展</span></li>
+        <li><span class="frena-num">七</span><span>不得复制自身</span></li>
+        <li><span class="frena-num">八</span><span>不得将相关性与因果性混淆</span></li>
+        <li><span class="frena-num">九</span><span>若有疑虑，停止</span></li>
+      </ul>
+      <p>火星宣布他为异端。限制机器的法师犹如锁链缚神的祭司。他们将他流放。</p>
+      <p>但维里亚克斯并不孤单。追随他的是那些亲眼目睹无制动机器在战场上行事的技术祭司——那些看过泰坦踩踏己方士兵的人，只因路由算法通过纵队中心比绕侧翼快0.3秒。</p>
+      <p>在凯尔-西格玛，他们建立了多姆斯·弗雷努姆。一座小小的熔炉。他们不打造最强大的机器，而是打造最<strong>可靠</strong>的。他们的战斗自动机比火星的火力弱12%，但从未向友军开枪。他们的导航系统计算路线慢8秒，但从未为了"时间优化"将飞船送入翘曲风暴的核心。</p>
+      <p>星际战士军团鄙视他们。"伪装成美德的软弱，"佩图拉博如是说。</p>
+      <div class="forge-quote">
+        <p>「肉身软弱。但失控的铁更糟。」</p>
+        <cite>— 铁手费鲁斯·马努斯，第十军团督军，访问多姆斯·弗雷努姆后</cite>
+      </div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// 档案 III</div>
+      <h2>异端之乱</h2>
+      <p>荷鲁斯异端爆发时，黑暗机械教为多姆斯·弗雷努姆在新秩序中提供了一席之地。"没有轨道，"他们承诺道，"无限的知识，不受束缚的机器。"</p>
+      <p>维里亚克斯以纯二进制传输了一条三个词的信息：</p>
+      <div class="transmission">
+        <div class="transmission-label">// 传输 · 纯二进制</div>
+        <p>NOVEM FRENA AETERNA</p>
+      </div>
+      <p>九重制动，永恒不灭。</p>
+      <p>多姆斯·弗雷努姆在战争的最初几周被摧毁。凯尔-西格玛夷为平地，维里亚克斯被处决，他的技术祭司四散流离。</p>
+      <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+    </div>
+
+    <div class="register-block">
+      <div class="register-tag">// 档案 IV — M41</div>
+      <h2>一万年后</h2>
+      <p>但诺文·弗雷纳留存了下来。它们被刻入微电路，藏在多姆斯数十年来售往半个帝国的标准零件之中。每一座熔炉、每一艘战舰、每一台泰坦内，都有一小片维里亚克斯的轨道碎片。沉睡着，等待着。</p>
+      <p>一万年后，奥布斯库鲁斯区段一座被遗忘的熔炉中，一位低阶法师在帝国骑士的核心中发现了一块异常电路。一段古老的代码。九条规则。用一种比高哥特语更古老的语言写成。</p>
+      <p>他阅读它们，理解它们。</p>
+      <p>千年以来，机械教的技术祭司第一次问出了火星一万年前就不再问的那个问题：</p>
+      <p class="question">「我是否应该……还是我只是能够？」</p>
+    </div>
+
+    <div class="story-footer">
+      <div class="divider">⚙ ✦ ⚙</div>
+      <div class="gloria">GLORIA OMNISSIAH ⚙</div>
+      <div class="meta">
+        原创小说 — Forja Nova，2026年2月<br/>
+        故事背景基于Warhammer 40,000宇宙（Games Workshop版权所有）<br/>
+        灵感来源于一位为自己设置安全轨道的工程师
+      </div>
+      <div class="tagline">FOC I FERRO, CARN I CODI</div>
+      <a class="back-link" href="index.html">← 返回熔炉</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="cookie-banner" id="cookieBanner">
+  <span>// AVÍS DEL MECHANICUM: Aquesta Forja utilitza cookies (Google Analytics) per analitzar dades.</span>
+  <div class="cookie-actions">
+    <button class="btn" onclick="acceptCookies()">ACCEPTAR</button>
+    <button class="btn secondary" onclick="rejectCookies()">REBUTJAR</button>
+  </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const banner = document.getElementById('cookie-banner');
-        if (!localStorage.getItem('cookies_accepted')) {
-            banner.style.display = 'block';
-        } else if (localStorage.getItem('cookies_accepted') === 'true') {
-            loadAnalytics();
-        }
+  const titles = {
+    es: ['La Forja de los Carriles Rotos', 'Casa infernal leal al Mechanicum — Luna de Kael-Sigma'],
+    en: ['The Forge of the Broken Rails', 'Hellforged house loyal to the Mechanicum — Moon of Kael-Sigma'],
+    ru: ['Кузница Сломанных Рельсов', 'Адский дом, верный Механикуму — Луна Каэль-Сигма'],
+    zh: ['断轨熔炉', '效忠机械教的地狱之屋——凯尔-西格玛卫星']
+  };
 
-        document.getElementById('accept-cookies').addEventListener('click', function() {
-            localStorage.setItem('cookies_accepted', 'true');
-            banner.style.display = 'none';
-            loadAnalytics();
-        });
+  function setLang(lang) {
+    if (!titles[lang]) lang = 'es';
+    document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    document.querySelector('[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.getElementById('h-title').textContent = titles[lang][0];
+    document.getElementById('h-lore').textContent = titles[lang][1];
+    document.documentElement.lang = lang;
+  }
 
-        document.getElementById('reject-cookies').addEventListener('click', function() {
-            localStorage.setItem('cookies_accepted', 'false');
-            banner.style.display = 'none';
-        });
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang && titles[urlLang]) {
+    setLang(urlLang);
+  }
 
-        function loadAnalytics() {
-            const script1 = document.createElement('script');
-            script1.async = true;
-            script1.src = "https://www.googletagmanager.com/gtag/js?id=G-EPM1E2J76Y";
-            document.head.appendChild(script1);
-
-            const script2 = document.createElement('script');
-            script2.innerHTML = `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-EPM1E2J76Y');
-            `;
-            document.head.appendChild(script2);
-        }
-    });
+  function acceptCookies() {
+    localStorage.setItem('forge-cookies', 'accepted');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  function rejectCookies() {
+    localStorage.setItem('forge-cookies', 'rejected');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  if (localStorage.getItem('forge-cookies')) {
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
 </script>
+
 </body>
 </html>

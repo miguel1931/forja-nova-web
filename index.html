@@ -1,151 +1,433 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FORJA NOVA | FORTALEZA DIGITAL</title>
-    <meta name="description" content="Forja Nova: Base de Operaciones de SMD en Latveria. Archivos, recursos y relatos como la crónica de Domus Frenum y los Novem Frena." />
-    <meta name="keywords" content="Forja Nova, Domus Frenum, Novem Frena, Veriax-Kael, Latveria, Fortaleza Digital" />
-    <meta name="author" content="Forja Nova" />
-    <meta property="og:title" content="FORJA NOVA | FORTALEZA DIGITAL" />
-    <meta property="og:description" content="Base de Operaciones de SMD en Latveria. Control de estado y recursos de la Gran Forja." />
-    <meta property="og:type" content="website" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORJA NOVA | FORTALESA DIGITAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- Google Analytics se carga dinámicamente si se aceptan las cookies (GDPR) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
+    :root {
+      --forge-bg: #0a0a08;
+      --forge-surface: #111110;
+      --forge-border: #2a2a26;
+      --forge-amber: #EF9F27;
+      --forge-amber-dim: #BA7517;
+      --forge-red: #E24B4A;
+      --forge-green: #639922;
+      --forge-text: #D3D1C7;
+      --forge-muted: #888780;
+      --forge-mono: 'Share Tech Mono', monospace;
+      --forge-display: 'Orbitron', monospace;
+    }
+
+    html, body {
+      background: var(--forge-bg);
+      color: var(--forge-text);
+      font-family: var(--forge-mono);
+      min-height: 100vh;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.12) 2px,
+        rgba(0,0,0,0.12) 4px
+      );
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .header {
+      border: 1px solid var(--forge-amber);
+      padding: 2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      text-align: center;
+    }
+    .header::before, .header::after {
+      content: '';
+      position: absolute;
+      left: 24px; right: 24px;
+      height: 1px;
+      background: var(--forge-bg);
+    }
+    .header::before { top: -1px; }
+    .header::after { bottom: -1px; }
+
+    .forge-title {
+      font-family: var(--forge-display);
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 700;
+      color: var(--forge-amber);
+      letter-spacing: 8px;
+      margin-bottom: 6px;
+    }
+    .forge-tagline {
+      font-size: 11px;
+      color: var(--forge-muted);
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+    .forge-subtitle {
+      font-size: 12px;
+      color: var(--forge-muted);
+      letter-spacing: 1px;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      border: 1px solid var(--forge-border);
+      padding: 1rem 1.25rem;
+      background: var(--forge-surface);
+    }
+
+    .panel-full { grid-column: 1 / -1; }
+
+    .panel-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--forge-amber-dim);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--forge-border);
+    }
+
+    /* STATUS ROWS */
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--forge-border);
+    }
+    .status-row:last-of-type { border-bottom: none; }
+    .status-label { color: var(--forge-muted); }
+
+    .badge {
+      font-size: 9px;
+      padding: 2px 8px;
+      letter-spacing: 1px;
+      border: 1px solid;
+    }
+    .badge-active { color: var(--forge-green); border-color: var(--forge-green); }
+    .badge-pending { color: var(--forge-amber); border-color: var(--forge-amber); }
+    .badge-hold { color: var(--forge-muted); border-color: var(--forge-border); }
+    .badge-secret { color: var(--forge-red); border-color: var(--forge-red); }
+
+    /* PROGRESS */
+    .progress-wrap { margin-top: 12px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--forge-muted);
+      margin-bottom: 5px;
+    }
+    .progress-bar { height: 3px; background: var(--forge-border); }
+    .progress-fill { height: 100%; background: var(--forge-amber); }
+    .progress-fill.green { background: var(--forge-green); }
+    .progress-fill.red { background: var(--forge-red); }
+
+    /* PROJECTS */
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr 90px 36px;
+      align-items: center;
+      gap: 1rem;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--forge-border);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .project-item:hover { background: rgba(239,159,39,0.04); }
+    .project-item:last-child { border-bottom: none; }
+
+    .project-name { font-size: 13px; color: var(--forge-text); }
+    .project-sub { font-size: 10px; color: var(--forge-muted); margin-top: 2px; letter-spacing: 1px; }
+
+    .progress-mini { height: 2px; background: var(--forge-border); }
+    .progress-mini-fill { height: 100%; background: var(--forge-amber); }
+    .progress-mini-fill.green { background: var(--forge-green); }
+    .progress-mini-fill.red { background: var(--forge-red); }
+
+    .pct { font-size: 10px; color: var(--forge-muted); text-align: right; }
+    .pct.red { color: var(--forge-red); }
+
+    /* LOG */
+    .log-entry {
+      font-size: 11px;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(42,42,38,0.5);
+      display: flex;
+      gap: 12px;
+    }
+    .log-entry:last-of-type { border-bottom: none; }
+    .log-ts { color: var(--forge-amber-dim); min-width: 88px; flex-shrink: 0; }
+    .log-ok { color: var(--forge-green); }
+
+    /* CURSOR */
+    .cursor-line {
+      font-size: 11px;
+      color: var(--forge-muted);
+      padding-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .blink { animation: blink 1.2s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: var(--forge-muted);
+      letter-spacing: 2px;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--forge-border);
+    }
+    .footer a { color: var(--forge-amber-dim); text-decoration: none; }
+    .footer a:hover { color: var(--forge-amber); }
+
+    /* COOKIE BANNER */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--forge-surface);
+      border-top: 1px solid var(--forge-amber);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 200;
+      font-size: 11px;
+      color: var(--forge-muted);
+    }
+    .cookie-banner.hidden { display: none; }
+    .cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+    .btn {
+      background: transparent;
+      border: 1px solid var(--forge-amber);
+      color: var(--forge-amber);
+      font-family: var(--forge-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: var(--forge-amber); color: var(--forge-bg); }
+    .btn.secondary { border-color: var(--forge-border); color: var(--forge-muted); }
+    .btn.secondary:hover { background: var(--forge-border); color: var(--forge-text); }
+  </style>
 </head>
-<body class="doom-theme">
-    <div class="scanlines"></div>
-    <div class="noise"></div>
-    
-    <header class="hero fortress-gate">
-        <div class="container">
-            <h1 class="glitch-text" data-text="FORJA NOVA">FORJA NOVA</h1>
-            <div class="motto">
-                <span class="motto-text">FOC I FERRO, CARN I CODI</span>
-            </div>
-            <p class="hero-description">Base de Operaciones de SMD en Latveria. Control de estado, cronologías y recursos de la Gran Forja.</p>
+<body>
+
+<div class="scanlines"></div>
+
+<div class="wrapper">
+
+  <header class="header">
+    <div class="forge-title">FORJA NOVA</div>
+    <div class="forge-tagline">FOC I FERRO &nbsp;·&nbsp; CARN I CODI</div>
+    <div class="forge-subtitle">Base de Operacions de SMD a Latveria — Control d'estat, cronologies i recursos de la Gran Forja</div>
+  </header>
+
+  <div class="grid">
+
+    <div class="panel">
+      <div class="panel-label">ESTAT DEL SISTEMA</div>
+      <div class="status-row">
+        <span class="status-label">OPERADOR</span>
+        <span>SMD</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">SECTOR</span>
+        <span>LATVERIA</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">SINC</span>
+        <span>19-MAR-2026</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">FORJA STATUS</span>
+        <span class="badge badge-active">ACTIVA</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>RUPTURA DIMENSIONAL</span>
+          <span>85%</span>
         </div>
-    </header>
-
-    <main class="container main-content">
-        <div class="grid-layout">
-            <section id="status" class="card fortress-card">
-                <div class="card-header">
-                    <span class="icon">⚡</span>
-                    <h2>ESTADO DEL SISTEMA</h2>
-                </div>
-                <div class="card-body">
-                    <ul class="status-list">
-                        <li><span class="label">INICIATIVA:</span> <span class="value accent">Ruptura dimensional</span></li>
-                        <li><span class="label">PROGRESO:</span> <span class="value pulse">85% COMPLETE</span></li>
-                        <li><span class="label">SINC:</span> <span class="value">19-MAR-2026</span></li>
-                    </ul>
-                </div>
-                <div class="card-footer-glitch"></div>
-            </section>
-
-            <section class="card fortress-card">
-                <div class="card-header">
-                    <span class="icon">⚔️</span>
-                    <h2>OBJETIVOS ESTRATÉGICOS</h2>
-                </div>
-                <div class="card-body">
-                    <ul class="objective-list">
-                        <li>Centralizar documentación de la Forja</li>
-                        <li>Automatizar extracción de chats de piloto</li>
-                        <li>Generar campañas de social media semanales</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="card fortress-card">
-                <div class="card-header">
-                    <span class="icon">📖</span>
-                    <h2>RELATOS</h2>
-                </div>
-                <div class="card-body">
-                    <div class="links-terminal">
-                        <a href="domus_frenum.html" class="terminal-link">> Domus Frenum: La Forja de los Carriles Rotos</a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card fortress-card resources">
-                <div class="card-header">
-                    <span class="icon">📜</span>
-                    <h2>ARCHIVOS Y RECURSOS</h2>
-                </div>
-                <div class="card-body">
-                    <div class="links-terminal">
-                        <a href="" class="terminal-link">> doom-chronicles</a>
-                        <a href="https://miguel1931.github.io/MazoCat/" class="terminal-link">> Proyecto MazoCat</a>
-                        <a href="https://mazo-iglesias.vercel.app/" class="terminal-link">> Proyecto Mazo Iglesias</a>
-                    </div>
-                    <div class="contact-terminal">
-                        <p>COMMS: <a href="mailto:forjanova@protonmail.com">forjanova@protonmail.com</a></p>
-                    </div>
-                </div>
-            </section>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:85%"></div>
         </div>
-    </main>
-
-    <footer class="fortress-footer">
-        <div class="container">
-            <p>FORJA NOVA &copy; 2026 | SECTOR LATVERIA | PROYECTO MIGUEL</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(13, 14, 15, 0.95); border-top: 1px solid #c9a84c; padding: 15px 20px; text-align: center; z-index: 9999; color: #d4c5a0; font-family: 'JetBrains Mono', monospace; font-size: clamp(12px, 3.5vw, 14px); box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
-        <p style="margin: 0 0 15px 0; line-height: 1.5;"><span style="color: #c9a84c;">// AVISO DEL MECHANICUM:</span><br>Esta Forja utiliza cookies (Google Analytics) para analizar datos. ¿Das tu consentimiento?</p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <button id="accept-cookies" style="flex: 1; min-width: 120px; padding: 10px; background: #c9a84c; color: #0d0e0f; border: 1px solid #c9a84c; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Aceptar</button>
-            <button id="reject-cookies" style="flex: 1; min-width: 120px; padding: 10px; background: transparent; color: #8a6f2e; border: 1px solid #8a6f2e; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px; text-transform: uppercase;">Rechazar</button>
-        </div>
+      </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const banner = document.getElementById('cookie-banner');
-            if (!localStorage.getItem('cookies_accepted')) {
-                banner.style.display = 'block';
-            } else if (localStorage.getItem('cookies_accepted') === 'true') {
-                loadAnalytics();
-            }
+    <div class="panel">
+      <div class="panel-label">OBJECTIUS ESTRATÈGICS</div>
+      <div class="status-row">
+        <span class="status-label">Centralitzar documentació</span>
+        <span class="badge badge-active">DONE</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Automatitzar extracció chats</span>
+        <span class="badge badge-pending">WIP</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Campanyes social setmanals</span>
+        <span class="badge badge-pending">WIP</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Proyecto 1931</span>
+        <span class="badge badge-hold">PENDENT</span>
+      </div>
+    </div>
 
-            document.getElementById('accept-cookies').addEventListener('click', function() {
-                localStorage.setItem('cookies_accepted', 'true');
-                banner.style.display = 'none';
-                loadAnalytics();
-            });
+    <div class="panel panel-full">
+      <div class="panel-label">ARXIUS DE LA FORJA</div>
 
-            document.getElementById('reject-cookies').addEventListener('click', function() {
-                localStorage.setItem('cookies_accepted', 'false');
-                banner.style.display = 'none';
-            });
+      <a class="project-item" href="https://mazo-iglesias.vercel.app" target="_blank" rel="noopener">
+        <div>
+          <div class="project-name">Mazo Iglesias</div>
+          <div class="project-sub">560 PARRÒQUIES · MADRID + BCN</div>
+        </div>
+        <div class="progress-mini"><div class="progress-mini-fill green" style="width:90%"></div></div>
+        <div class="pct">90%</div>
+      </a>
 
-            function loadAnalytics() {
-                const script1 = document.createElement('script');
-                script1.async = true;
-                script1.src = "https://www.googletagmanager.com/gtag/js?id=G-EPM1E2J76Y";
-                document.head.appendChild(script1);
+      <a class="project-item" href="https://miguel1931.github.io/MazoCat/" target="_blank" rel="noopener">
+        <div>
+          <div class="project-name">MazoCat</div>
+          <div class="project-sub">ARXIU · GITHUB PAGES</div>
+        </div>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:60%"></div></div>
+        <div class="pct">60%</div>
+      </a>
 
-                const script2 = document.createElement('script');
-                script2.innerHTML = `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-EPM1E2J76Y');
-                `;
-                document.head.appendChild(script2);
-            }
-        });
-    </script>
+      <a class="project-item" href="domus_frenum.html">
+        <div>
+          <div class="project-name">Domus Frenum</div>
+          <div class="project-sub">RELAT · LA FORJA DELS CARRILS ROTOS</div>
+        </div>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:40%"></div></div>
+        <div class="pct">40%</div>
+      </a>
+
+      <div class="project-item" style="cursor:default">
+        <div>
+          <div class="project-name">Doom Chronicles</div>
+          <div class="project-sub">ARXIU · EN CONSTRUCCIÓ</div>
+        </div>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:15%"></div></div>
+        <div class="pct">15%</div>
+      </div>
+
+      <div class="project-item" style="cursor:default">
+        <div>
+          <div class="project-name" style="color:var(--forge-muted)">Proyecto 1931</div>
+          <div class="project-sub">CLASSIFICAT · ACCÉS RESTRINGIT</div>
+        </div>
+        <div class="progress-mini"><div class="progress-mini-fill red" style="width:20%"></div></div>
+        <div class="pct red">???</div>
+      </div>
+
+    </div>
+
+    <div class="panel panel-full">
+      <div class="panel-label">LOG D'ACTIVITAT</div>
+      <div class="log-entry">
+        <span class="log-ts">19-MAR-2026</span>
+        <span>Sinc. completada — <span class="log-ok">OK</span></span>
+      </div>
+      <div class="log-entry">
+        <span class="log-ts">15-MAR-2026</span>
+        <span>MazoIglesias — Barcelona afegida (143 parròquies)</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-ts">10-MAR-2026</span>
+        <span>Domus Frenum — relat actualitzat</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-ts">01-MAR-2026</span>
+        <span>Doom Chronicles — inici d'arxiu</span>
+      </div>
+      <div class="cursor-line">
+        <span style="color:var(--forge-amber)">FORJA&gt;</span>
+        <span class="blink">_</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    FORJA NOVA © 2026 &nbsp;·&nbsp; SECTOR LATVERIA &nbsp;·&nbsp; PROJECTE MIGUEL
+    &nbsp;·&nbsp; <a href="mailto:forjanova@protonmail.com">forjanova@protonmail.com</a>
+  </footer>
+
+</div>
+
+<div class="cookie-banner" id="cookieBanner">
+  <span>// AVÍS DEL MECHANICUM: Aquesta Forja utilitza cookies (Google Analytics) per analitzar dades. Dones el teu consentiment?</span>
+  <div class="cookie-actions">
+    <button class="btn" onclick="acceptCookies()">ACCEPTAR</button>
+    <button class="btn secondary" onclick="rejectCookies()">REBUTJAR</button>
+  </div>
+</div>
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem('forge-cookies', 'accepted');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  function rejectCookies() {
+    localStorage.setItem('forge-cookies', 'rejected');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  if (localStorage.getItem('forge-cookies')) {
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+</script>
+
 </body>
 </html>

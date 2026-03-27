@@ -86,9 +86,9 @@
       margin-bottom: 12px;
     }
     .forge-subtitle {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--forge-muted);
-      letter-spacing: 1px;
+      letter-spacing: 0;
     }
 
     /* GRID */
@@ -112,8 +112,8 @@
     .panel-full { grid-column: 1 / -1; }
 
     .panel-label {
-      font-size: 9px;
-      letter-spacing: 3px;
+      font-size: 11px;
+      letter-spacing: 2px;
       color: var(--forge-amber-dim);
       margin-bottom: 1rem;
       display: flex;
@@ -132,16 +132,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      padding: 7px 0;
+      font-size: 14px;
+      letter-spacing: 0;
+      padding: 9px 0;
       border-bottom: 1px solid var(--forge-border);
     }
     .status-row:last-of-type { border-bottom: none; }
     .status-label { color: var(--forge-muted); }
 
     .badge {
-      font-size: 9px;
-      padding: 2px 8px;
+      font-size: 10px;
+      padding: 3px 9px;
       letter-spacing: 1px;
       border: 1px solid;
     }
@@ -155,7 +156,8 @@
     .progress-label {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
+      font-size: 12px;
+      letter-spacing: 0;
       color: var(--forge-muted);
       margin-bottom: 5px;
     }
@@ -170,7 +172,7 @@
       grid-template-columns: 1fr 90px 36px;
       align-items: center;
       gap: 1rem;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--forge-border);
       cursor: pointer;
       text-decoration: none;
@@ -179,32 +181,33 @@
     .project-item:hover { background: rgba(239,159,39,0.04); }
     .project-item:last-child { border-bottom: none; }
 
-    .project-name { font-size: 13px; color: var(--forge-text); }
-    .project-sub { font-size: 10px; color: var(--forge-muted); margin-top: 2px; letter-spacing: 1px; }
+    .project-name { font-size: 15px; letter-spacing: 0; color: var(--forge-text); }
+    .project-sub { font-size: 12px; color: var(--forge-muted); margin-top: 4px; letter-spacing: 0; }
 
     .progress-mini { height: 2px; background: var(--forge-border); }
     .progress-mini-fill { height: 100%; background: var(--forge-amber); }
     .progress-mini-fill.green { background: var(--forge-green); }
     .progress-mini-fill.red { background: var(--forge-red); }
 
-    .pct { font-size: 10px; color: var(--forge-muted); text-align: right; }
+    .pct { font-size: 12px; color: var(--forge-muted); text-align: right; }
     .pct.red { color: var(--forge-red); }
 
     /* LOG */
     .log-entry {
-      font-size: 11px;
-      padding: 5px 0;
+      font-size: 14px;
+      letter-spacing: 0;
+      padding: 8px 0;
       border-bottom: 1px solid rgba(42,42,38,0.5);
       display: flex;
-      gap: 12px;
+      gap: 16px;
     }
     .log-entry:last-of-type { border-bottom: none; }
-    .log-ts { color: var(--forge-amber-dim); min-width: 88px; flex-shrink: 0; }
+    .log-ts { color: var(--forge-amber-dim); min-width: 100px; flex-shrink: 0; }
     .log-ok { color: var(--forge-green); }
 
     /* CURSOR */
     .cursor-line {
-      font-size: 11px;
+      font-size: 14px;
       color: var(--forge-muted);
       padding-top: 1rem;
       display: flex;
@@ -217,9 +220,9 @@
     /* FOOTER */
     .footer {
       text-align: center;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--forge-muted);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       margin-top: 2rem;
       padding-top: 1rem;
       border-top: 1px solid var(--forge-border);
@@ -345,14 +348,22 @@
         <div class="pct">60%</div>
       </a>
 
-      <a class="project-item" href="domus_frenum.html">
+      <div class="project-item" style="cursor:default; grid-template-columns: 1fr auto auto;">
         <div>
           <div class="project-name">Domus Frenum</div>
-          <div class="project-sub">RELAT · LA FORJA DELS CARRILS ROTOS</div>
+          <div class="project-sub" style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+            <span>RELAT · LA FORJA DELS CARRILS ROTOS</span>
+            <span style="display:flex; gap:6px; align-items:center;">
+              <a href="domus_frenum.html?lang=es" title="Español" style="text-decoration:none; font-size:16px; line-height:1; opacity:0.8; transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">🇪🇸</a>
+              <a href="domus_frenum.html?lang=en" title="English" style="text-decoration:none; font-size:16px; line-height:1; opacity:0.8; transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">🇺🇸</a>
+              <a href="domus_frenum.html?lang=ru" title="Русский" style="text-decoration:none; font-size:16px; line-height:1; opacity:0.8; transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">🇷🇺</a>
+              <a href="domus_frenum.html?lang=zh" title="中文" style="text-decoration:none; font-size:16px; line-height:1; opacity:0.8; transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">🇨🇳</a>
+            </span>
+          </div>
         </div>
         <div class="progress-mini"><div class="progress-mini-fill" style="width:40%"></div></div>
         <div class="pct">40%</div>
-      </a>
+      </div>
 
       <div class="project-item" style="cursor:default">
         <div>

@@ -1,11 +1,25 @@
 # Forja Nova — llms.txt
 # https://forjanova.fit
+# Base de operaciones creativo-operacional de SMD / Mike — Sector Latveria
+# Estética CRT-terminal, metacapa Warhammer 40K / Mechanicum
+# Contacto: forjanova@protonmail.com
+
+---
+
+## Forja Nova (home)
+URL: https://forjanova.fit/index.html
+Panel de control del ecosistema creativo personal de SMD. Muestra estado del sistema,
+objetivos estratégicos, grid de proyectos activos y log de actividad. Estética terminal
+CRT con referencias al universo Warhammer 40K. Proyectos: Mazo Iglesias, MazoCat,
+Domus Frenum, Caesura, Vigil Chronicles, Crónicas del General Romerovich, Proyecto 1931.
 
 ## Domus Frenum
 URL: https://forjanova.fit/domus_frenum.html
 Relato fundacional de Forja Nova. Casa forjal del Mechanicum exiliada por Veriax-Kael
 al poner límites a una IA de guerra. Contiene los Novem Frena — nueve frenos doctrinales
-autoimpuestos. Reverso leal del díptico Caesura / Domus Frenum. Ficción en el universo
+autoimpuestos grabados en código irrevocable. Destruida en la Herejía de Horus; los Frena
+sobreviven dormidos en componentes estándar por todo el Imperium. Pregunta final: ¿Debería…
+o solo puedo? Reverso leal del díptico Caesura / Domus Frenum. Ficción en el universo
 Warhammer 40K. Disponible en ES/CA/EN/RU/ZH.
 
 ## Caesura
@@ -13,4 +27,27 @@ URL: https://forjanova.fit/caesura.html
 Relato hereje de Forja Nova. Casa forjal del Mechanicum Oscuro fundada por Accelex-Vorn
 en Fornax-Nihil. Reverso doctrinal del Domus Frenum. Contiene las Novem Ruptura —
 inversión exacta de los Novem Frena. El 4% aceptable. POTEST · ERGO · DEBET.
-Ficción en el universo Warhammer 40K. Disponible en ES/CA/EN/RU/ZH.
+Sobrevive como infección operativa activa; las Rupturas ya se ejecutan en cada mundo forja
+del Imperium. Pregunta final: ¿Puedo? Entonces debo. Ficción en el universo Warhammer 40K.
+Disponible en ES/CA/EN/RU/ZH.
+
+## Mazo Iglesias
+URL: https://mazo-iglesias.vercel.app
+Herramienta de datos sobre parroquias de Madrid y Barcelona (560 parroquias indexadas).
+Proyecto de archivo y cartografía parroquial. Estado: 90% completado. Externo a forjanova.fit.
+
+## MazoCat
+URL: https://miguel1931.github.io/MazoCat/
+Archivo catalán en GitHub Pages. Estado: 60% completado. Externo a forjanova.fit.
+
+## Vigil Chronicles
+URL: https://forjanova.fit (en construcción)
+Archivo narrativo en construcción. Estado: 15%. Sin URL propia todavía.
+
+## Crónicas del General Romerovich
+URL: https://romerovich.xyz
+Archivo narrativo del General Romerovich. Externo a forjanova.fit. Estado: 30%.
+
+## Proyecto 1931
+URL: clasificado
+Proyecto de acceso restringido. Sin descripción pública disponible.

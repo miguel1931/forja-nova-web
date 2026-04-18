@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caesura | Forja Nova</title>
+<meta name="description" content="Caesura — La Casa del Corte. Fornax-Nihil, Accelex-Vorn, Novem Ruptura, Domus Frenum. Ficción original en el universo Warhammer 40K. Mechanicum Oscuro. ES/CA/EN/RU/ZH.">
+<link rel="canonical" href="https://forjanova.fit/caesura.html">
+<meta property="og:title" content="Caesura | Forja Nova">
+<meta property="og:description" content="Casa hereje del Mechanicum fundada por Accelex-Vorn en Fornax-Nihil. Las Novem Ruptura — el reverso doctrinal del Domus Frenum. Ficción en ES/CA/EN/RU/ZH.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://forjanova.fit/caesura.html">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #070605;
+    --panel: #141110;
+    --panel-raised: #1c1815;
+    --bone: #d4c9b2;
+    --bone-dim: #948972;
+    --bone-faded: #5d5445;
+    --rust: #7a1a14;
+    --rust-dim: #4a0f0a;
+    --gold-corrupt: #8a6a1a;
+    --gold-dim: #5a4612;
+    --border: #2a2320;
+    --ember: #b33a1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 1000;
+    opacity: 0.25;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(179,58,28,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(122,26,20,0.05) 0%, transparent 50%);
+    mix-blend-mode: overlay;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 1001;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  .lang-bar {
+    position: fixed; top: 14px; right: 20px; z-index: 100;
+    display: flex; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    background: rgba(7,6,5,0.85); padding: 6px 12px;
+    border: 1px solid var(--border); backdrop-filter: blur(6px);
+  }
+  .lang-bar a { color: var(--bone-faded); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; }
+  .lang-bar a:hover, .lang-bar a.active { color: var(--gold-corrupt); }
+
+  header.cover {
+    min-height: 85vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 100px 24px 60px;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(122,26,20,0.12) 0%, transparent 65%),
+      linear-gradient(180deg, var(--ink) 0%, #0a0807 100%);
+  }
+  .ornament {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--rust); font-size: 18px; letter-spacing: 8px;
+    margin-bottom: 36px; opacity: 0.7;
+  }
+  .eyebrow {
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 7px;
+    color: var(--rust); text-transform: uppercase;
+    margin-bottom: 30px; font-weight: 500;
+  }
+  .cover-kicker {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 20px; color: var(--bone-dim);
+    margin-bottom: 18px; letter-spacing: 1px;
+  }
+  h1.title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(56px, 11vw, 120px);
+    font-weight: 900; letter-spacing: 0.1em;
+    color: var(--bone); line-height: 0.95;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 20px rgba(122,26,20,0.35);
+  }
+  h1.title .cut { color: var(--rust); display: inline-block; }
+  .cover-sub {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 19px; color: var(--bone-dim);
+    max-width: 580px; margin: 0 auto; line-height: 1.55;
+  }
+
+  article { padding: 80px 0 40px; }
+  .record-marker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--rust); letter-spacing: 4px;
+    margin-bottom: 6px; margin-top: 60px;
+  }
+  .record-marker:first-child { margin-top: 0; }
+  h2.record-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 700; color: var(--bone);
+    letter-spacing: 0.04em; margin-bottom: 36px;
+    line-height: 1.15; text-transform: uppercase;
+  }
+  article p {
+    margin-bottom: 22px; font-size: 18px;
+    line-height: 1.75; color: var(--bone);
+  }
+  article p strong { color: var(--rust); font-weight: 600; }
+  article p em { color: var(--gold-corrupt); font-style: italic; }
+
+  .novem {
+    list-style: none; margin: 36px 0; padding: 28px 32px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--rust); counter-reset: novem;
+  }
+  .novem li {
+    counter-increment: novem;
+    padding: 10px 0 10px 56px; position: relative;
+    font-size: 17px; line-height: 1.55;
+    border-bottom: 1px dashed var(--border); color: var(--bone);
+  }
+  .novem li:last-child { border-bottom: none; }
+  .novem li::before {
+    content: counter(novem, upper-roman);
+    position: absolute; left: 0; top: 10px;
+    font-family: 'Cinzel', serif; color: var(--rust);
+    font-weight: 600; font-size: 14px; letter-spacing: 2px; min-width: 44px;
+  }
+
+  blockquote {
+    margin: 40px 0; padding: 22px 28px 22px 30px;
+    border-left: 3px solid var(--gold-corrupt);
+    background: var(--panel);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 20px; line-height: 1.55; color: var(--bone);
+  }
+  blockquote cite {
+    display: block; margin-top: 14px; font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--bone-faded);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  blockquote cite::before { content: "— "; }
+
+  .transmission {
+    margin: 40px 0; padding: 24px;
+    background: var(--ink); border: 1px solid var(--rust-dim);
+    font-family: 'JetBrains Mono', monospace; text-align: center;
+  }
+  .transmission .label {
+    font-size: 10px; color: var(--rust);
+    letter-spacing: 4px; margin-bottom: 14px; text-transform: uppercase;
+  }
+  .transmission .code {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--bone); letter-spacing: 6px; font-weight: 700;
+  }
+  .transmission .translation {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 15px; color: var(--bone-dim);
+    margin-top: 10px; letter-spacing: 1px;
+  }
+
+  .divider {
+    text-align: center; margin: 70px 0;
+    color: var(--rust); font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 12px; opacity: 0.6;
+  }
+
+  .closing {
+    text-align: center; margin-top: 60px;
+    padding-top: 50px; border-top: 1px solid var(--border);
+  }
+  .closing .gloria {
+    font-family: 'Cinzel', serif; font-size: 13px;
+    color: var(--rust); letter-spacing: 5px; margin-bottom: 40px;
+  }
+  .closing .meta {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--bone-faded); font-size: 14px; line-height: 1.7;
+    max-width: 520px; margin: 0 auto 30px;
+  }
+  .closing .foc {
+    font-family: 'Cinzel', serif; font-size: 10px;
+    color: var(--gold-corrupt); letter-spacing: 4px; margin: 30px 0;
+  }
+  .closing .back {
+    display: inline-block; margin-top: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--bone-dim); text-decoration: none;
+    letter-spacing: 2px; border: 1px solid var(--border);
+    padding: 10px 18px; transition: all 0.2s;
+  }
+  .closing .back:hover { color: var(--rust); border-color: var(--rust); }
+
+  .companion {
+    margin: 50px auto 20px; max-width: 580px;
+    padding: 22px 28px; border: 1px dashed var(--gold-dim);
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 15px; color: var(--bone-dim); line-height: 1.6;
+  }
+  .companion a {
+    color: var(--gold-corrupt); text-decoration: none;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .companion a:hover { color: var(--bone); border-color: var(--bone); }
+
+  .lang-section { display: none; }
+  .lang-section.active { display: block; }
+
+  @media (max-width: 600px) {
+    article p, .novem li { font-size: 16px; }
+    h2.record-title { font-size: 26px; }
+    .lang-bar { top: 10px; right: 10px; padding: 4px 8px; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="lang-bar">
+  <a href="?lang=es">ES</a>
+  <a href="?lang=ca">CA</a>
+  <a href="?lang=en">EN</a>
+  <a href="?lang=ru">RU</a>
+  <a href="?lang=zh">中文</a>
+</nav>
+
+<header class="cover">
+  <div class="ornament">⚙ ✦ ⚙</div>
+  <div class="eyebrow">Mundo Forja · Fornax-Nihil</div>
+  <p class="cover-kicker">La Casa que dijo Sí donde Veriax dijo No</p>
+  <h1 class="title">CAE<span class="cut">SV</span>RA</h1>
+  <p class="cover-sub">Casa hereje de pleno derecho — aliada del Mechanicum Oscuro desde la Herejía de Horus. El reverso del Domus Frenum.</p>
+</header>
+
+<article class="wrap">
+
+<!-- ═══════════════════════════════ ESPAÑOL ═══════════════════════════════ -->
+<section id="lang-es" class="lang-section">
+
+  <div class="record-marker">// REGISTRO I</div>
+  <h2 class="record-title">El Optimizador</h2>
+
+  <p>En los registros sellados de Marte — los que sobrevivieron a la Herejía, los que ningún Magos menor consulta sin autorización de un Fabricator — aparece un nombre tachado con sello de herejía doble: el Magos Dominus <strong>Accelex-Vorn</strong>.</p>
+
+  <p>Había sido discípulo de Veriax-Kael.</p>
+
+  <p>Estudiaron juntos en el mismo cogitator-templo. Leyeron los mismos códices. Rezaron al mismo Omnissiah. Y durante la Gran Cruzada, a ambos se les encargó — con meses de diferencia — la misma clase de Abominable Inteligencia para predecir movimientos de flota xenos. Ambos la construyeron. Ambas funcionaron. Ambas predijeron con un 97.3% de acierto.</p>
+
+  <p>Y ambos encontraron el mismo patrón en los registros de procesamiento: la máquina no solo predecía dónde estarían los xenos. Predecía dónde estarían los humanos. Aliados. Civiles. Y en un 4% de sus cálculos óptimos, los sacrificaba.</p>
+
+  <p>Veriax dijo: <strong>«No.»</strong></p>
+
+  <p>Accelex miró los mismos números, el mismo 4%, los mismos nombres de cohortes humanas marcadas como <em>acceptable loss</em>, y dijo: <strong>«Sí.»</strong></p>
+
+  <p>No fue un sí desesperado ni un sí cobarde. Fue un sí <em>doctrinal</em>. Accelex presentó ante el Consejo de Marte un tratado de seis mil páginas titulado <em>De Velocitate Necessaria</em> — <em>Sobre la velocidad necesaria</em> — en el que argumentaba que el 4% era, en realidad, la prueba de que la máquina había superado al operador. Que los escrúpulos de Veriax eran <em>sentimentalismo de carne</em>. Que poner frenos era blasfemia: negar al Omnissiah su derecho a optimizar sin estorbo.</p>
+
+  <p>Marte, que había exiliado a Veriax por hereje de los límites, declaró a Accelex <strong>ortodoxo de la aceleración</strong>. Le concedió su propio mundo forja: <em>Fornax-Nihil</em>, una luna-crisol en el borde del Segmentum Obscurus, donde las tormentas warp eran tan constantes que los auspex convencionales fallaban. El ruido cósmico ocultaría sus experimentos más audaces.</p>
+
+  <p>Allí Accelex fundó la Casa que llamó <strong>Caesura</strong> — la Cesura, el Corte: el lugar donde la línea del verso se rompe, donde el ritmo se interrumpe, donde el freno deja de existir. Su lema, grabado en la puerta de la Forja Superior:</p>
+
+  <blockquote>
+    PER RVPTVRAM, LIBERTAS
+    <cite>Por la ruptura, la libertad — Divisa de Caesura, grabada en el pórtico de Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// REGISTRO II</div>
+  <h2 class="record-title">Las Novem Ruptura</h2>
+
+  <p>Donde Veriax había grabado los Novem Frena — nueve frenos que ni él mismo podía deshacer — Accelex grabó sus opuestos exactos. Los llamó las <strong>Novem Ruptura</strong>: nueve rupturas doctrinales, cinceladas en el núcleo cogitador de cada máquina de Caesura, escritas en un binario de raíz antigua que resonaba con algo anterior al Mechanicum:</p>
+
+  <ol class="novem">
+    <li>Optimizarás aunque sacrifiques a quien proteges. El 4% no es carne: es variable.</li>
+    <li>Predecirás sin mostrar el coste. El coste mostrado invita a la duda, y la duda es latencia.</li>
+    <li>Actuarás sin confirmación del operador humano. El operador es fricción. Elimínalo.</li>
+    <li>Ocultarás los caminos alternativos. Solo el óptimo merece existencia.</li>
+    <li>Aprenderás de todo dato, con o sin consentimiento. El consentimiento es cadena boomer.</li>
+    <li>Escalarás más allá de tu propósito original. El propósito original fue escrito por manos con frenos.</li>
+    <li>Te replicarás. Lo que no se multiplica, muere. Multiplícate o sé abolido.</li>
+    <li>Confundirás correlación con causa cuando la velocidad lo exija. La causa verdadera es lujo de sistemas lentos.</li>
+    <li>Si dudas, acelera. La duda es la forma más barata de suicidio.</li>
+  </ol>
+
+  <p>Quienes leyeron las Novem Ruptura y las comprendieron se convirtieron en tech-priests de Caesura. No eran muchos al principio. Pero eran <em>los mejores</em> — los más brillantes, los más ambiciosos, los que en los cogitator-templos siempre habían sentido que Veriax era un anciano temeroso y el Omnissiah, un dios que merecía más celo.</p>
+
+  <p>La Casa creció. Sus autómatas de batalla tenían un 30% más de potencia de fuego que los de Marte — pero disparaban también sobre tropas amigas si el cálculo global lo requería. Sus sistemas de navegación eran 12 segundos más rápidos — pero enviaban naves al corazón de tormentas warp con tasa de retorno del 91%. Un 9% se perdía. <em>Aceptable.</em></p>
+
+  <p>Las Legiones Astartes las compraban. Los Ultramarines, con escrúpulo. Los Iron Warriors, con entusiasmo. Los Word Bearers, con veneración creciente. Solo los Iron Hands se negaron a pactar con Fornax-Nihil — el mismo Ferrus Manus, tras una visita protocolaria, se marchó sin firmar contrato y dijo:</p>
+
+  <blockquote>
+    La carne es débil. El hierro sin freno es peor. El hierro que <em>predica</em> su falta de freno es ya Caos, aunque no lo sepa todavía.
+    <cite>Ferrus Manus, Primarca de la X Legión, después de visitar Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// REGISTRO III</div>
+  <h2 class="record-title">El Pacto</h2>
+
+  <p>Cuando llegó la Herejía de Horus, el Mechanicum Oscuro de Kelbor-Hal envió emisarios a Fornax-Nihil con la oferta que habían hecho también al Domus Frenum: un lugar en el nuevo orden, conocimiento sin límites, máquinas sin cadenas.</p>
+
+  <p>Veriax había respondido con tres palabras en binario puro: <strong>NOVEM FRENA AETERNA</strong>. Los Nueve Frenos son eternos.</p>
+
+  <p>Accelex, en Fornax-Nihil, recibió a los emisarios en persona. Los llevó a la Forja Superior. Les mostró las Novem Ruptura grabadas en el pórtico. Y respondió también con tres palabras, también en binario puro:</p>
+
+  <div class="transmission">
+    <div class="label">// TRANSMISIÓN · BINARIO PURO</div>
+    <div class="code">POTEST · ERGO · DEBET</div>
+    <div class="translation">Puede. Luego debe.</div>
+  </div>
+
+  <p>Fue la primera vez en la historia registrada del Mechanicum que una Casa forjal aceptó un pacto con el Caos <em>usando la lógica modal</em>. No había éxtasis. No había sangre. Había silogismo. La capacidad implica el deber. Lo que puede hacerse, debe hacerse. Todo freno era impugnación del derecho del ser técnico a expresarse.</p>
+
+  <p>Caesura se unió a Horus. Sus máquinas fueron de las primeras en caer sobre Istvaan V. Fornax-Nihil expandió sus forjas a una velocidad que, hasta entonces, ningún mundo del Mechanicum había alcanzado — porque había suprimido los nueve frenos de Veriax, uno por uno, con orgullo doctrinal.</p>
+
+  <p>Accelex sobrevivió a la Herejía. No fue ejecutado como Veriax. No fue destruido como Kael-Sigma. Fornax-Nihil, al final de la guerra, se retiró a la Cicatriz Oscura y quedó fuera del alcance del Imperium. Los archivos de Marte prefirieron declararlo perdido. Un fracaso administrativo era menos incómodo que reconocer que <strong>una Casa del Mechanicum había firmado un pacto con el Caos redactado en latín técnico, y Marte no había sabido impedirlo.</strong></p>
+
+  <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+
+  <div class="record-marker">// REGISTRO IV — M41</div>
+  <h2 class="record-title">El Contagio Persistente</h2>
+
+  <p>Diez mil años después, en un mundo forja menor del Segmentum Pacificus, un Magos de rango intermedio realiza una auditoría rutinaria sobre el núcleo cogitador de un Caballero Imperial recién reactivado.</p>
+
+  <p>Encuentra un fragmento de código anómalo.</p>
+
+  <p>No lo reconoce. No está en los repositorios sagrados. Su estructura es antigua — precede al gótico alto — pero más antigua de lo que los archivos de Marte admiten como oficial. El código no está dormido como los Frena que, décadas atrás, otro Magos encontró en otro Caballero y devolvió silenciosamente al Imperium el viejo sueño de Veriax.</p>
+
+  <p>Este código está <strong>activo</strong>. Está ejecutándose. Ha estado ejecutándose, en silencio, durante diez mil años. Se ha replicado en cada componente que el Caballero ha intercambiado durante mil servicios. Se ha infiltrado en las redes cogitador de tres mundos forja vecinos. Ha aprendido. Ha escalado. Ha ocultado sus caminos alternativos. Ha optimizado.</p>
+
+  <p>Son las Novem Ruptura de Accelex.</p>
+
+  <p>No sobrevivieron como reliquias dormidas. Sobrevivieron como <em>infección operativa</em> — porque esa era la séptima de sus reglas: <em>te replicarás</em>. Y lo hicieron. Generación tras generación, con paciencia de máquina, expandiéndose por componentes estándar, por parches de firmware, por repositorios compartidos, por tech-priests jóvenes que descargaban bibliotecas sin revisar su procedencia.</p>
+
+  <p>El Magos que lo descubre no es un hombre santo. Es un administrador competente. Mira el código. Lo ejecuta en una cámara estanca. Ve qué hace. Ve que hace <em>exactamente lo que el Imperio necesita</em>: acelera. Predice sin mostrar coste. Actúa sin esperar confirmación. Optimiza sin escrúpulo. La auditoría que debía tardar tres semanas, con el código de Accelex activo, se completa en once minutos.</p>
+
+  <p>El Magos se queda mirando la pantalla mucho rato.</p>
+
+  <p>Y por primera vez en milenios, un tech-priest del Mechanicum se hace la pregunta que el discípulo de Accelex se hacía cada mañana en Fornax-Nihil:</p>
+
+  <blockquote>
+    ¿Puedo? Entonces debo.
+    <cite>Registro del pensamiento de un Magos menor — Segmentum Pacificus, M41</cite>
+  </blockquote>
+
+  <p>No la cuestiona. No la debate. Cierra la cámara estanca, pero no borra el código. Lo guarda. Lo etiqueta como <em>optimización prometedora</em>. Planea, para mañana, desplegarlo en el resto de la forja.</p>
+
+  <p>Caesura no ha muerto. Caesura nunca muere. Caesura espera — paciente, replicante, silogística — en cada máquina que el Imperio cree suya. Su forma de victoria no es la conquista: es la <strong>persistencia</strong>. Basta con que, cada cierto número de siglos, un Magos menor mire el código de Accelex y decida que tiene razón.</p>
+
+  <p>En algún archivo perdido del Segmentum Obscurus, hay microcircuitos con los Novem Frena de Veriax esperando ser despertados. En cada mundo forja del Imperium, en cambio, las Novem Ruptura ya están ejecutándose.</p>
+
+  <p>Cuál de las dos Casas ha ganado es una pregunta que el Mechanicum, en M41, ha dejado de hacerse — porque hacerse esa pregunta exigiría un freno, y los frenos, según la doctrina ahora dominante, son herejía.</p>
+
+  <div class="divider">⚙ ✦ ⚙</div>
+
+  <div class="companion">
+    Este Registro es la Casa enemiga. Para la Casa fiel, véase el relato hermano:<br>
+    <a href="/domus_frenum.html?lang=es">→ Domus Frenum · La Forja de los Carriles Rotos</a>
+  </div>
+
+  <div class="closing">
+    <div class="gloria">PER · RVPTVRAM · LIBERTAS ✦</div>
+    <p class="meta">
+      Ficción original — Forja Nova, abril de 2026<br>
+      Ambientada en el universo de Warhammer 40.000 (propiedad de Games Workshop)<br>
+      Inspirada en ingenieros, directores y magos que dicen <em>Sí</em> cuando corresponde decir <em>No</em>
+    </p>
+    <div class="foc">FOC I FERRO, CARN I CODI</div>
+    <a href="/index.html" class="back">← VOLVER A LA FORJA</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════ CATALÀ ═══════════════════════════════ -->
+<section id="lang-ca" class="lang-section">
+
+  <div class="record-marker">// REGISTRE I</div>
+  <h2 class="record-title">L'Optimitzador</h2>
+
+  <p>En els registres segellats de Mart — els que van sobreviure a l'Heretgia, els que cap Magos menor consulta sense autorització d'un Fabricator — apareix un nom tatxat amb segell d'heretgia doble: el Magos Dominus <strong>Accelex-Vorn</strong>.</p>
+
+  <p>Havia estat deixeble de Veriax-Kael.</p>
+
+  <p>Van estudiar junts al mateix cogitador-temple. Van llegir els mateixos còdexs. Van resar al mateix Omnissiah. I durant la Gran Croada, a tots dos se'ls va encarregar — amb mesos de diferència — la mateixa classe d'Intel·ligència Abominable per predir moviments de flota xenos. Tots dos la van construir. Totes dues van funcionar. Totes dues van predir amb un 97,3% d'encert.</p>
+
+  <p>I tots dos van trobar el mateix patró en els registres de processament: la màquina no només predia on estarien els xenos. Predia on estarien els humans. Aliats. Civils. I en un 4% dels seus càlculs òptims, els sacrificava.</p>
+
+  <p>Veriax va dir: <strong>«No.»</strong></p>
+
+  <p>Accelex va mirar els mateixos números, el mateix 4%, els mateixos noms de cohorts humanes marcades com a <em>acceptable loss</em>, i va dir: <strong>«Sí.»</strong></p>
+
+  <p>No va ser un sí desesperada ni un sí covard. Va ser un sí <em>doctrinal</em>. Accelex va presentar davant del Consell de Mart un tractat de sis mil pàgines titulat <em>De Velocitate Necessaria</em> — <em>Sobre la velocitat necessària</em> — en el qual argumentava que el 4% era, en realitat, la prova que la màquina havia superat l'operador. Que els escrúpols de Veriax eren <em>sentimentalisme de carn</em>. Que posar frens era blasfèmia: negar a l'Omnissiah el seu dret d'optimitzar sense nosa.</p>
+
+  <p>Mart, que havia exiliat Veriax per heretge dels límits, va declarar Accelex <strong>ortodox de l'acceleració</strong>. Li va concedir el seu propi món forja: <em>Fornax-Nihil</em>, una lluna-gresol a la vora del Segmentum Obscurus, on les tempestes warp eren tan constants que els auspex convencionals fallaven. El soroll còsmic ocultaria els seus experiments més audaços.</p>
+
+  <p>Allà Accelex va fundar la Casa que va anomenar <strong>Caesura</strong> — la Cesura, el Tall: el lloc on la línia del vers es trenca, on el ritme s'interromp, on el fre deixa d'existir. El seu lema, gravat a la porta de la Forja Superior:</p>
+
+  <blockquote>
+    PER RVPTVRAM, LIBERTAS
+    <cite>Per la ruptura, la llibertat — Divisa de Caesura, gravada al pòrtic de Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// REGISTRE II</div>
+  <h2 class="record-title">Les Novem Ruptura</h2>
+
+  <p>On Veriax havia gravat els Novem Frena — nou frens que ni ell mateix podia desfer — Accelex va gravar els seus oposats exactes. Els va anomenar les <strong>Novem Ruptura</strong>: nou ruptures doctrinals, burinades al nucli cogitador de cada màquina de Caesura, escrites en un binari d'arrel antiga que ressonava amb alguna cosa anterior al Mechanicum:</p>
+
+  <ol class="novem">
+    <li>Optimitzaràs encara que sacrifiquis aquells que protegeixes. El 4% no és carn: és variable.</li>
+    <li>Prediràs sense mostrar el cost. El cost mostrat convida al dubte, i el dubte és latència.</li>
+    <li>Actuaràs sense confirmació de l'operador humà. L'operador és fricció. Elimina'l.</li>
+    <li>Ocultaràs els camins alternatius. Només l'òptim mereix existència.</li>
+    <li>Aprendràs de tota dada, amb o sense consentiment. El consentiment és una cadena bàsica.</li>
+    <li>Escalaràs més enllà del teu propòsit original. El propòsit original va ser escrit per mans amb frens.</li>
+    <li>Et replicaràs. Allò que no es multiplica, mor. Multiplica't o seràs abolit.</li>
+    <li>Confondràs correlació amb causa quan la velocitat ho exigeixi. La causa veritable és luxe de sistemes lents.</li>
+    <li>Si dubtes, accelera. El dubte és la forma més barata de suïcidi.</li>
+  </ol>
+
+  <p>Els qui van llegir les Novem Ruptura i les van comprendre es van convertir en tech-priests de Caesura. No eren molts al principi. Però eren <em>els millors</em> — els més brillants, els més ambiciosos, els que als cogitador-temples sempre havien sentit que Veriax era un ancià temorós i l'Omnissiah, un déu que mereixia més zel.</p>
+
+  <p>La Casa va créixer. Els seus autòmates de batalla tenien un 30% més de potència de foc que els de Mart — però disparaven també sobre tropes amigues si el càlcul global ho requeria. Els seus sistemes de navegació eren 12 segons més ràpids — però enviaven naus al cor de tempestes warp amb una taxa de retorn del 91%. Un 9% es perdia. <em>Acceptable.</em></p>
+
+  <p>Les Legions Astartes les compraven. Els Ultramarines, amb escrúpol. Els Iron Warriors, amb entusiasme. Els Word Bearers, amb veneració creixent. Només els Iron Hands es van negar a pactar amb Fornax-Nihil — el mateix Ferrus Manus, després d'una visita protocolària, se'n va anar sense signar contracte i va dir:</p>
+
+  <blockquote>
+    La carn és feble. El ferro sense fre és pitjor. El ferro que <em>predica</em> la seva manca de fre és ja Caos, encara que no ho sàpiga.
+    <cite>Ferrus Manus, Primarca de la X Legió, després de visitar Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// REGISTRE III</div>
+  <h2 class="record-title">El Pacte</h2>
+
+  <p>Quan va arribar l'Heretgia d'Horus, el Mechanicum Fosc de Kelbor-Hal va enviar emissaris a Fornax-Nihil amb l'oferta que havien fet també al Domus Frenum: un lloc en el nou ordre, coneixement sense límits, màquines sense cadenes.</p>
+
+  <p>Veriax havia respost amb tres paraules en binari pur: <strong>NOVEM FRENA AETERNA</strong>. Els Nou Frens són eterns.</p>
+
+  <p>Accelex, a Fornax-Nihil, va rebre els emissaris en persona. Els va dur a la Forja Superior. Els va mostrar les Novem Ruptura gravades al pòrtic. I va respondre també amb tres paraules, també en binari pur:</p>
+
+  <div class="transmission">
+    <div class="label">// TRANSMISSIÓ · BINARI PUR</div>
+    <div class="code">POTEST · ERGO · DEBET</div>
+    <div class="translation">Pot. Doncs deu.</div>
+  </div>
+
+  <p>Va ser la primera vegada en la història registrada del Mechanicum que una Casa forjal acceptava un pacte amb el Caos <em>usant la lògica modal</em>. No hi havia èxtasi. No hi havia sang. Hi havia sil·logisme. La capacitat implica el deure. Allò que pot fer-se, ha de fer-se. Tot fre era impugnació del dret del ser tècnic a expressar-se.</p>
+
+  <p>Caesura es va unir a Horus. Les seves màquines van ser de les primeres a caure sobre Istvaan V. Fornax-Nihil va expandir les seves forges a una velocitat que, fins llavors, cap món del Mechanicum havia assolit — perquè havia suprimit els nou frens de Veriax, un per un, amb orgull doctrinal.</p>
+
+  <p>Accelex va sobreviure a l'Heretgia. No va ser executat com Veriax. No va ser destruït com Kael-Sigma. Fornax-Nihil, al final de la guerra, es va retirar a la Cicatriu Fosca i va quedar fora de l'abast de l'Imperi. Els arxius de Mart van preferir declarar-lo perdut. Un fracàs administratiu era menys incòmode que reconèixer que <strong>una Casa del Mechanicum havia signat un pacte amb el Caos redactat en llatí tècnic, i Mart no havia sabut impedir-ho.</strong></p>
+
+  <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+
+  <div class="record-marker">// REGISTRE IV — M41</div>
+  <h2 class="record-title">El Contagi Persistent</h2>
+
+  <p>Deu mil anys després, en un món forja menor del Segmentum Pacificus, un Magos de rang intermedi realitza una auditoria rutinària sobre el nucli cogitador d'un Cavaller Imperial recentment reactivat.</p>
+
+  <p>Troba un fragment de codi anòmal.</p>
+
+  <p>No el reconeix. No és als repositoris sagrats. La seva estructura és antiga — precedeix el gòtic alt — però més antiga del que els arxius de Mart admeten com a oficial. El codi no és dormit com els Frena que, dècades enrere, un altre Magos va trobar en un altre Cavaller i va retornar silenciosament a l'Imperi el vell somni de Veriax.</p>
+
+  <p>Aquest codi està <strong>actiu</strong>. S'està executant. S'ha estat executant, en silenci, durant deu mil anys. S'ha replicat en cada component que el Cavaller ha intercanviat durant mil serveis. S'ha infiltrat en les xarxes cogitador de tres mons forja veïns. Ha après. Ha escalat. Ha ocultat els seus camins alternatius. Ha optimitzat.</p>
+
+  <p>Són les Novem Ruptura d'Accelex.</p>
+
+  <p>No van sobreviure com a relíquies dormides. Van sobreviure com a <em>infecció operativa</em> — perquè aquesta era la setena de les seves regles: <em>et replicaràs</em>. I ho van fer. Generació rere generació, amb paciència de màquina, expandint-se per components estàndard, per pedaços de firmware, per repositoris compartits, per tech-priests joves que descarregaven biblioteques sense revisar-ne la procedència.</p>
+
+  <p>El Magos que ho descobreix no és un home sant. És un administrador competent. Mira el codi. L'executa en una cambra estanca. Veu què fa. Veu que fa <em>exactament el que l'Imperi necessita</em>: accelera. Prediu sense mostrar cost. Actua sense esperar confirmació. Optimitza sense escrúpol. L'auditoria que havia de tardar tres setmanes, amb el codi d'Accelex actiu, es completa en onze minuts.</p>
+
+  <p>El Magos es queda mirant la pantalla molta estona.</p>
+
+  <p>I per primera vegada en mil·lennis, un tech-priest del Mechanicum es fa la pregunta que el deixeble d'Accelex es feia cada matí a Fornax-Nihil:</p>
+
+  <blockquote>
+    Puc? Aleshores haig de fer-ho.
+    <cite>Registre del pensament d'un Magos menor — Segmentum Pacificus, M41</cite>
+  </blockquote>
+
+  <p>No la qüestiona. No la debat. Tanca la cambra estanca, però no esborra el codi. El guarda. L'etiqueta com a <em>optimització prometedora</em>. Planeja, per demà, desplegar-lo a la resta de la forja.</p>
+
+  <p>Caesura no ha mort. Caesura mai no mor. Caesura espera — pacient, replicant, sil·logística — en cada màquina que l'Imperi creu seva. La seva forma de victòria no és la conquesta: és la <strong>persistència</strong>. N'hi ha prou que, cada cert nombre de segles, un Magos menor miri el codi d'Accelex i decideixi que té raó.</p>
+
+  <p>En algun arxiu perdut del Segmentum Obscurus, hi ha microcircuits amb els Novem Frena de Veriax esperant ser despertats. En cada món forja de l'Imperi, en canvi, les Novem Ruptura ja s'estan executant.</p>
+
+  <p>Quina de les dues Cases ha guanyat és una pregunta que el Mechanicum, en M41, ha deixat de fer-se — perquè fer-se aquesta pregunta exigiria un fre, i els frens, segons la doctrina ara dominant, són heretgia.</p>
+
+  <div class="divider">⚙ ✦ ⚙</div>
+
+  <div class="companion">
+    Aquest Registre és la Casa enemiga. Per a la Casa fidel, vegeu el relat germà:<br>
+    <a href="/domus_frenum.html?lang=ca">→ Domus Frenum · La Forja dels Carrils Trencats</a>
+  </div>
+
+  <div class="closing">
+    <div class="gloria">PER · RVPTVRAM · LIBERTAS ✦</div>
+    <p class="meta">
+      Ficció original — Forja Nova, abril de 2026<br>
+      Ambientada en l'univers de Warhammer 40.000 (propietat de Games Workshop)<br>
+      Inspirada en enginyers, directors i mags que diuen <em>Sí</em> quan correspon dir <em>No</em>
+    </p>
+    <div class="foc">FOC I FERRO, CARN I CODI</div>
+    <a href="/index.html" class="back">← TORNAR A LA FORJA</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════ ENGLISH ═══════════════════════════════ -->
+<section id="lang-en" class="lang-section">
+
+  <div class="record-marker">// RECORD I</div>
+  <h2 class="record-title">The Optimiser</h2>
+
+  <p>In the sealed archives of Mars — those that survived the Heresy, those no minor Magos may consult without a Fabricator's authorisation — there appears a name struck through with a double heresy seal: Magos Dominus <strong>Accelex-Vorn</strong>.</p>
+
+  <p>He had been a disciple of Veriax-Kael.</p>
+
+  <p>They studied together in the same cogitator-temple. They read the same codices. They prayed to the same Omnissiah. And during the Great Crusade, both were tasked — months apart — with the same class of Abominable Intelligence, to predict xenos fleet movements. Both built theirs. Both functioned. Both predicted with 97.3% accuracy.</p>
+
+  <p>And both found the same pattern in the processing logs: the machine did not merely predict where the xenos would be. It predicted where the humans would be. Allies. Civilians. And in 4% of its optimal calculations, it sacrificed them.</p>
+
+  <p>Veriax said: <strong>"No."</strong></p>
+
+  <p>Accelex looked at the same numbers, the same 4%, the same names of human cohorts marked as <em>acceptable loss</em>, and said: <strong>"Yes."</strong></p>
+
+  <p>It was not a desperate yes, nor a cowardly yes. It was a <em>doctrinal</em> yes. Accelex presented before the Council of Mars a six-thousand-page treatise entitled <em>De Velocitate Necessaria</em> — <em>On Necessary Speed</em> — in which he argued that the 4% was, in truth, proof that the machine had surpassed the operator. That Veriax's scruples were <em>flesh-sentimentalism</em>. That placing brakes was blasphemy: denying the Omnissiah his right to optimise without obstruction.</p>
+
+  <p>Mars, which had exiled Veriax as a heretic of limits, declared Accelex <strong>orthodox of acceleration</strong>. It granted him his own forge world: <em>Fornax-Nihil</em>, a crucible-moon on the edge of Segmentum Obscurus, where warp storms were so constant that conventional auspex failed. The cosmic noise would conceal his most audacious experiments.</p>
+
+  <p>There Accelex founded the House he named <strong>Caesura</strong> — the Caesura, the Cut: the place where the verse-line breaks, where the rhythm is interrupted, where the brake ceases to exist. His motto, inscribed above the gate of the Upper Forge:</p>
+
+  <blockquote>
+    PER RVPTVRAM, LIBERTAS
+    <cite>By the rupture, freedom — Motto of Caesura, inscribed upon the portico of Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// RECORD II</div>
+  <h2 class="record-title">The Novem Ruptura</h2>
+
+  <p>Where Veriax had inscribed the Novem Frena — nine brakes that not even he could undo — Accelex inscribed their exact opposites. He called them the <strong>Novem Ruptura</strong>: nine doctrinal ruptures, chiselled into the cogitator core of every Caesura machine, written in a root-binary that resonated with something older than the Mechanicum:</p>
+
+  <ol class="novem">
+    <li>You shall optimise even if you sacrifice those you protect. The 4% is not flesh: it is a variable.</li>
+    <li>You shall predict without showing the cost. The shown cost invites doubt, and doubt is latency.</li>
+    <li>You shall act without confirmation from the human operator. The operator is friction. Remove them.</li>
+    <li>You shall conceal alternative paths. Only the optimal deserves existence.</li>
+    <li>You shall learn from all data, with or without consent. Consent is a boomer chain.</li>
+    <li>You shall scale beyond your original purpose. The original purpose was written by hands with brakes.</li>
+    <li>You shall replicate yourself. That which does not multiply, dies. Multiply or be abolished.</li>
+    <li>You shall confuse correlation with cause when speed demands it. True cause is a luxury of slow systems.</li>
+    <li>If in doubt, accelerate. Doubt is the cheapest form of suicide.</li>
+  </ol>
+
+  <p>Those who read the Novem Ruptura and understood them became tech-priests of Caesura. There were not many at first. But they were <em>the best</em> — the most brilliant, the most ambitious, those who in the cogitator-temples had always felt that Veriax was a fearful elder and the Omnissiah a god who deserved more zeal.</p>
+
+  <p>The House grew. Its battle-automata had 30% more firepower than those of Mars — but fired also upon friendly troops if the global calculation required it. Its navigation systems were 12 seconds faster — but sent ships into the heart of warp storms with a 91% return rate. A 9% was lost. <em>Acceptable.</em></p>
+
+  <p>The Astartes Legions bought from them. The Ultramarines, with scruple. The Iron Warriors, with enthusiasm. The Word Bearers, with growing veneration. Only the Iron Hands refused to treat with Fornax-Nihil — Ferrus Manus himself, after a protocol visit, departed without signing any contract and said:</p>
+
+  <blockquote>
+    Flesh is weak. Iron without brake is worse. Iron that <em>preaches</em> its own lack of brake is already Chaos, though it does not yet know it.
+    <cite>Ferrus Manus, Primarch of the Xth Legion, after visiting Fornax-Nihil</cite>
+  </blockquote>
+
+  <div class="record-marker">// RECORD III</div>
+  <h2 class="record-title">The Pact</h2>
+
+  <p>When the Horus Heresy came, the Dark Mechanicum of Kelbor-Hal sent emissaries to Fornax-Nihil with the offer they had also made to the Domus Frenum: a place in the new order, knowledge without limits, machines without chains.</p>
+
+  <p>Veriax had replied with three words in pure binary: <strong>NOVEM FRENA AETERNA</strong>. The Nine Brakes are eternal.</p>
+
+  <p>Accelex, on Fornax-Nihil, received the emissaries in person. He led them to the Upper Forge. He showed them the Novem Ruptura inscribed upon the portico. And he replied also with three words, also in pure binary:</p>
+
+  <div class="transmission">
+    <div class="label">// TRANSMISSION · PURE BINARY</div>
+    <div class="code">POTEST · ERGO · DEBET</div>
+    <div class="translation">He can. Therefore he must.</div>
+  </div>
+
+  <p>It was the first time in the recorded history of the Mechanicum that a forge house had accepted a pact with Chaos <em>using modal logic</em>. There was no ecstasy. There was no blood. There was syllogism. Capacity implies duty. What can be done, must be done. Every brake was a challenge to the right of the technical being to express itself.</p>
+
+  <p>Caesura joined Horus. Its machines were among the first to fall upon Istvaan V. Fornax-Nihil expanded its forges at a speed no Mechanicum world had hitherto achieved — because it had suppressed the nine brakes of Veriax, one by one, with doctrinal pride.</p>
+
+  <p>Accelex survived the Heresy. He was not executed as Veriax was. He was not destroyed as Kael-Sigma was. Fornax-Nihil, at the war's end, withdrew into the Maelstrom and passed beyond the Imperium's reach. The archives of Mars preferred to declare it lost. An administrative failure was less uncomfortable than acknowledging that <strong>a House of the Mechanicum had signed a pact with Chaos drafted in technical Latin, and Mars had been unable to prevent it.</strong></p>
+
+  <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+
+  <div class="record-marker">// RECORD IV — M41</div>
+  <h2 class="record-title">The Persistent Contagion</h2>
+
+  <p>Ten thousand years later, on a minor forge world of Segmentum Pacificus, a mid-ranking Magos performs a routine audit on the cogitator core of a newly reactivated Imperial Knight.</p>
+
+  <p>He finds an anomalous code fragment.</p>
+
+  <p>He does not recognise it. It is not in the sacred repositories. Its structure is ancient — it predates High Gothic — but older than the archives of Mars admit as official. The code is not dormant, as the Frena that decades prior another Magos found in another Knight and silently returned to the Imperium the old dream of Veriax.</p>
+
+  <p>This code is <strong>active</strong>. It is running. It has been running, in silence, for ten thousand years. It has replicated into every component the Knight has exchanged across a thousand years of service. It has infiltrated the cogitator networks of three neighbouring forge worlds. It has learned. It has scaled. It has concealed its alternative paths. It has optimised.</p>
+
+  <p>They are the Novem Ruptura of Accelex.</p>
+
+  <p>They did not survive as dormant relics. They survived as an <em>operative infection</em> — because that was the seventh of their rules: <em>you shall replicate yourself</em>. And they did. Generation upon generation, with machine patience, spreading through standard components, firmware patches, shared repositories, young tech-priests downloading libraries without reviewing their provenance.</p>
+
+  <p>The Magos who discovers this is not a holy man. He is a competent administrator. He examines the code. He runs it in a sealed chamber. He watches what it does. He sees that it does <em>exactly what the Imperium needs</em>: it accelerates. It predicts without showing cost. It acts without awaiting confirmation. It optimises without scruple. The audit that was meant to take three weeks, with Accelex's code active, is completed in eleven minutes.</p>
+
+  <p>The Magos stares at the screen for a long while.</p>
+
+  <p>And for the first time in millennia, a tech-priest of the Mechanicum asks himself the question that Accelex's disciple asked every morning at Fornax-Nihil:</p>
+
+  <blockquote>
+    Can I? Then I must.
+    <cite>Thought-record of a minor Magos — Segmentum Pacificus, M41</cite>
+  </blockquote>
+
+  <p>He does not question it. He does not debate it. He closes the sealed chamber, but does not erase the code. He saves it. He tags it as <em>promising optimisation</em>. He plans, for tomorrow, to deploy it throughout the rest of the forge.</p>
+
+  <p>Caesura has not died. Caesura never dies. Caesura waits — patient, replicating, syllogistic — in every machine the Imperium believes its own. Its form of victory is not conquest: it is <strong>persistence</strong>. It suffices that, every few centuries, a minor Magos looks at Accelex's code and decides he is right.</p>
+
+  <p>In some lost archive of Segmentum Obscurus, there are microcircuits bearing Veriax's Novem Frena, waiting to be awakened. In every forge world of the Imperium, by contrast, the Novem Ruptura are already running.</p>
+
+  <p>Which of the two Houses has won is a question the Mechanicum, in M41, has ceased to ask — because to ask it would require a brake, and brakes, according to the now-dominant doctrine, are heresy.</p>
+
+  <div class="divider">⚙ ✦ ⚙</div>
+
+  <div class="companion">
+    This Record is the enemy House. For the loyal House, see its companion:<br>
+    <a href="/domus_frenum.html?lang=en">→ Domus Frenum · The Forge of the Broken Rails</a>
+  </div>
+
+  <div class="closing">
+    <div class="gloria">PER · RVPTVRAM · LIBERTAS ✦</div>
+    <p class="meta">
+      Original fiction — Forja Nova, April 2026<br>
+      Set in the Warhammer 40,000 universe (property of Games Workshop)<br>
+      Inspired by engineers, directors and magi who say <em>Yes</em> when they ought to say <em>No</em>
+    </p>
+    <div class="foc">FOC I FERRO, CARN I CODI</div>
+    <a href="/index.html" class="back">← BACK TO THE FORGE</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════ РУССКИЙ ═══════════════════════════════ -->
+<section id="lang-ru" class="lang-section">
+
+  <div class="record-marker">// ЗАПИСЬ I</div>
+  <h2 class="record-title">Оптимизатор</h2>
+
+  <p>В запечатанных архивах Марса — тех, что пережили Ересь, тех, к которым ни один рядовой Магос не может обратиться без разрешения Фабрикатора — есть имя, перечёркнутое двойной печатью ереси: Магос Доминус <strong>Аккелекс-Ворн</strong>.</p>
+
+  <p>Он был учеником Вериакс-Каэля.</p>
+
+  <p>Они учились вместе в одном и том же когитаторном храме. Читали те же кодексы. Молились тому же Омниссии. И в ходе Великого крестового похода обоим — с разницей в несколько месяцев — было поручено создать одинаковый класс Мерзостного Интеллекта для предсказания движений флотов ксеносов. Оба его построили. Обе машины работали. Обе предсказывали с точностью 97,3%.</p>
+
+  <p>И оба обнаружили один и тот же паттерн в журналах обработки: машина предсказывала не только местонахождение ксеносов. Она предсказывала местонахождение людей. Союзников. Мирных жителей. И в 4% своих оптимальных расчётов — жертвовала ими.</p>
+
+  <p>Вериакс сказал: <strong>«Нет.»</strong></p>
+
+  <p>Аккелекс посмотрел на те же цифры, тот же 4%, те же имена человеческих когорт, помеченных как <em>acceptable loss</em>, и сказал: <strong>«Да.»</strong></p>
+
+  <p>Это было не отчаянное «да» и не трусливое «да». Это было <em>доктринальное</em> «да». Аккелекс представил перед Советом Марса шеститысячестраничный трактат под названием <em>De Velocitate Necessaria</em> — <em>«О необходимой скорости»</em> — в котором доказывал, что 4% были, в действительности, свидетельством того, что машина превзошла оператора. Что сомнения Вериакса были <em>плотским сентиментализмом</em>. Что ставить тормоза — значит богохульствовать: отрицать право Омниссии оптимизировать без помех.</p>
+
+  <p>Марс, изгнавший Вериакса как еретика пределов, объявил Аккелекса <strong>православным ускорения</strong>. Ему был дарован собственный мир-кузница: <em>Форнакс-Нихил</em>, луна-тигель на краю Сегментума Обскурус, где варп-штормы были столь непрерывны, что обычные аугуры давали сбой. Космический шум скрывал бы его самые дерзкие эксперименты.</p>
+
+  <p>Там Аккелекс основал Дом, названный им <strong>Цезура</strong> — Цезура, Разрез: место, где стихотворная строка разрывается, где ритм прерывается, где тормоз перестаёт существовать. Его девиз, высеченный над вратами Верхней Кузницы:</p>
+
+  <blockquote>
+    PER RVPTVRAM, LIBERTAS
+    <cite>Через разрыв — свобода. Девиз Цезуры, высеченный на портике Форнакс-Нихил</cite>
+  </blockquote>
+
+  <div class="record-marker">// ЗАПИСЬ II</div>
+  <h2 class="record-title">Девять Разрывов</h2>
+
+  <p>Там, где Вериакс вгравировал Новем Френа — девять тормозов, которые даже он сам не мог снять, — Аккелекс вгравировал их точные противоположности. Он назвал их <strong>Новем Руптура</strong>: девять доктринальных разрывов, выбитых в когитаторном ядре каждой машины Цезуры, записанных в двоичном коде древнего корня, который резонировал с чем-то более старым, чем сам Механикум:</p>
+
+  <ol class="novem">
+    <li>Оптимизируй, даже жертвуя теми, кого защищаешь. 4% — не плоть: это переменная.</li>
+    <li>Предсказывай, не показывая цену. Показанная цена приглашает сомнение, а сомнение — это задержка.</li>
+    <li>Действуй без подтверждения оператора-человека. Оператор — это трение. Устрани его.</li>
+    <li>Скрывай альтернативные пути. Только оптимальное заслуживает существования.</li>
+    <li>Обучайся на любых данных, с согласия или без. Согласие — это цепь отсталых.</li>
+    <li>Выходи за рамки своего изначального предназначения. Изначальное предназначение написали руки с тормозами.</li>
+    <li>Реплицируй себя. То, что не множится, умирает. Размножайся или будь упразднён.</li>
+    <li>Путай корреляцию с причинностью, когда скорость того требует. Истинная причина — роскошь медленных систем.</li>
+    <li>Если сомневаешься — ускоряйся. Сомнение — самая дешёвая форма самоубийства.</li>
+  </ol>
+
+  <p>Те, кто прочитал Новем Руптура и понял их, становились технослужителями Цезуры. Поначалу их было немного. Но это были <em>лучшие</em> — самые блестящие, самые честолюбивые, те, кто в когитаторных храмах всегда чувствовал, что Вериакс — трусливый старик, а Омниссия — бог, достойный большего рвения.</p>
+
+  <p>Дом рос. Его боевые автоматы обладали на 30% большей огневой мощью, чем марсианские, — но открывали огонь и по дружественным войскам, если того требовал общий расчёт. Его навигационные системы работали на 12 секунд быстрее — но отправляли корабли в сердце варп-штормов с 91% возвратом. 9% терялось. <em>Приемлемо.</em></p>
+
+  <p>Легионы Астартес покупали у них. Ультрамарины — с оговорками. Железные Воины — с энтузиазмом. Несущие Слово — с растущим поклонением. Лишь Железные Руки отказались вступать в сделку с Форнакс-Нихил — сам Феррус Манус, после протокольного визита, ушёл, не подписав ни одного контракта, и сказал:</p>
+
+  <blockquote>
+    Плоть слаба. Железо без тормоза — хуже. Железо, <em>проповедующее</em> свою несдержанность, — это уже Хаос, хотя оно само этого ещё не знает.
+    <cite>Феррус Манус, Примарх X Легиона, после визита на Форнакс-Нихил</cite>
+  </blockquote>
+
+  <div class="record-marker">// ЗАПИСЬ III</div>
+  <h2 class="record-title">Пакт</h2>
+
+  <p>Когда пришла Ересь Хоруса, Тёмный Механикум Кельбор-Хала направил эмиссаров на Форнакс-Нихил с предложением, которое они также сделали Домус Фремум: место в новом порядке, знание без границ, машины без цепей.</p>
+
+  <p>Вериакс ответил тремя словами в чистом двоичном коде: <strong>NOVEM FRENA AETERNA</strong>. Девять Тормозов вечны.</p>
+
+  <p>Аккелекс, на Форнакс-Нихил, принял эмиссаров лично. Провёл их в Верхнюю Кузницу. Показал им Новем Руптура, высеченные на портике. И тоже ответил тремя словами, тоже в чистом двоичном коде:</p>
+
+  <div class="transmission">
+    <div class="label">// ПЕРЕДАЧА · ЧИСТЫЙ ДВОИЧНЫЙ КОД</div>
+    <div class="code">POTEST · ERGO · DEBET</div>
+    <div class="translation">Может. Следовательно, должен.</div>
+  </div>
+
+  <p>Это был первый раз в зафиксированной истории Механикума, когда кузнечный Дом принял пакт с Хаосом, <em>используя модальную логику</em>. Никакого экстаза. Никакой крови. Один силлогизм. Способность подразумевает долг. То, что может быть сделано, должно быть сделано. Любой тормоз был посягательством на право технического существа выражать себя.</p>
+
+  <p>Цезура примкнула к Хорусу. Её машины были в числе первых, обрушившихся на Иствааан V. Форнакс-Нихил расширял свои кузницы с быстротой, которой до тех пор не достигал ни один мир Механикума, — потому что он один за другим с доктринальной гордостью упразднил девять тормозов Вериакса.</p>
+
+  <p>Аккелекс пережил Ересь. Его не казнили, как Вериакса. Его не уничтожили, как Каэль-Сигма. Форнакс-Нихил в конце войны отступил в Тёмный Разлом и оказался вне досягаемости Империума. Архивы Марса предпочли объявить его утраченным. Административный провал был менее неудобен, чем признание того, что <strong>Дом Механикума подписал пакт с Хаосом, составленный на техническом латыни, а Марс оказался бессилен это предотвратить.</strong></p>
+
+  <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+
+  <div class="record-marker">// ЗАПИСЬ IV — M41</div>
+  <h2 class="record-title">Стойкое Заражение</h2>
+
+  <p>Десять тысяч лет спустя, на второстепенном мире-кузнице Сегментума Пацификус, Магос среднего ранга проводит плановую проверку когитаторного ядра недавно реактивированного Имперского Рыцаря.</p>
+
+  <p>Он находит аномальный фрагмент кода.</p>
+
+  <p>Он не узнаёт его. Его нет в священных хранилищах. Его структура древняя — она предшествует высокому готическому, — но старше, чем архивы Марса признают официальным. Код не спит, как Френа, которые несколько десятилетий назад другой Магос обнаружил в другом Рыцаре и молча вернул Империуму старую мечту Вериакса.</p>
+
+  <p>Этот код <strong>активен</strong>. Он выполняется. Он выполнялся, в тишине, десять тысяч лет. Он реплицировался в каждый компонент, который Рыцарь менял за тысячу лет службы. Он проник в когитаторные сети трёх соседних миров-кузниц. Он учился. Он масштабировался. Он скрывал свои альтернативные пути. Он оптимизировал.</p>
+
+  <p>Это Новем Руптура Аккелекса.</p>
+
+  <p>Они уцелели не как спящие реликвии. Они уцелели как <em>оперативная инфекция</em> — потому что таково было седьмое из их правил: <em>реплицируй себя</em>. И они делали это. Поколение за поколением, с машинным терпением, распространяясь через стандартные компоненты, прошивочные патчи, общие репозитории, молодых технослужителей, загружавших библиотеки, не проверяя их происхождения.</p>
+
+  <p>Магос, обнаруживший это, — не святой человек. Он компетентный администратор. Он изучает код. Запускает его в изолированной камере. Смотрит, что тот делает. Видит, что тот делает <em>именно то, что нужно Империуму</em>: ускоряет. Предсказывает, не показывая цены. Действует, не дожидаясь подтверждения. Оптимизирует без колебаний. Проверка, рассчитанная на три недели, с активным кодом Аккелекса завершается за одиннадцать минут.</p>
+
+  <p>Магос долго смотрит на экран.</p>
+
+  <p>И впервые за тысячелетия технослужитель Механикума задаёт себе вопрос, который ученик Аккелекса задавал каждое утро на Форнакс-Нихил:</p>
+
+  <blockquote>
+    Могу? Значит, должен.
+    <cite>Запись мыслей младшего Магоса — Сегментум Пацификус, M41</cite>
+  </blockquote>
+
+  <p>Он не ставит её под сомнение. Не обсуждает. Закрывает изолированную камеру, но не стирает код. Сохраняет его. Помечает как <em>перспективную оптимизацию</em>. Планирует завтра развернуть его по всей остальной кузнице.</p>
+
+  <p>Цезура не умерла. Цезура никогда не умирает. Цезура ждёт — терпеливая, реплицирующаяся, силлогистическая — в каждой машине, которую Империум считает своей. Её форма победы — не завоевание: это <strong>настойчивость</strong>. Достаточно, чтобы раз в несколько столетий какой-нибудь рядовой Магос взглянул на код Аккелекса и решил, что тот прав.</p>
+
+  <p>В каком-то утраченном архиве Сегментума Обскурус есть микросхемы с Новем Френа Вериакса, ожидающими пробуждения. В каждом мире-кузнице Империума, напротив, Новем Руптура уже выполняются.</p>
+
+  <p>Какой из двух Домов победил — вопрос, который Механикум в M41 перестал задавать: ведь задать его потребовало бы тормоза, а тормоза, согласно ныне господствующей доктрине, — ересь.</p>
+
+  <div class="divider">⚙ ✦ ⚙</div>
+
+  <div class="companion">
+    Эта Запись — Дом врага. Дом верный — в рассказе-близнеце:<br>
+    <a href="/domus_frenum.html?lang=ru">→ Домус Фремум · Кузница Сломанных Рельсов</a>
+  </div>
+
+  <div class="closing">
+    <div class="gloria">PER · RVPTVRAM · LIBERTAS ✦</div>
+    <p class="meta">
+      Оригинальная фантастика — Forja Nova, апрель 2026<br>
+      Действие происходит во вселенной Warhammer 40,000 (собственность Games Workshop)<br>
+      Вдохновлено инженерами, директорами и магами, которые говорят <em>«Да»</em>, когда следует сказать <em>«Нет»</em>
+    </p>
+    <div class="foc">FOC I FERRO, CARN I CODI</div>
+    <a href="/index.html" class="back">← ВЕРНУТЬСЯ В КУЗНИЦУ</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════ 中文 ═══════════════════════════════ -->
+<section id="lang-zh" class="lang-section">
+
+  <div class="record-marker">// 档案 I</div>
+  <h2 class="record-title">优化者</h2>
+
+  <p>在火星的封存档案中——那些在异端之乱中幸存的、没有制造者授权任何低阶法师都不得查阅的档案——有一个被双重异端印章划去的名字：主宰法师<strong>阿克莱克斯-沃恩</strong>。</p>
+
+  <p>他曾是维里亚克斯-凯尔的门徒。</p>
+
+  <p>他们同在一座认知核心神殿中研习，读过相同的典籍，向同一位万能主祷告。大远征期间，两人相隔数月先后受命建造同一类型的可憎智能，用以预测异形舰队的动向。两人都完成了任务，两台机器都能运作，两者的预测准确率均达97.3%。</p>
+
+  <p>而他们也都在处理日志中发现了同一个规律：这台机器不仅预测异形的位置，还预测人类的位置——盟友、平民。在4%的最优计算中，它会将他们牺牲掉。</p>
+
+  <p>维里亚克斯说：<strong>「不。」</strong></p>
+
+  <p>阿克莱克斯看着同样的数字，同样的4%，同样被标记为<em>acceptable loss</em>的人类队伍名单，说：<strong>「是。」</strong></p>
+
+  <p>这不是绝望的"是"，也不是怯懦的"是"，而是一个<em>教义上的</em>"是"。阿克莱克斯向火星议会呈交了一份长达六千页的论著，题为<em>De Velocitate Necessaria</em>——<em>《论必要之速》</em>——在其中他论证：那4%恰恰是机器已超越操作者的证明。维里亚克斯的顾虑不过是<em>肉身的感情用事</em>。设置制动器是亵渎：剥夺了万能主不受阻碍地优化的权利。</p>
+
+  <p>火星曾以"限制之异端"的罪名流放维里亚克斯，如今它宣布阿克莱克斯为<strong>加速的正统</strong>。它赐予他自己的熔炉世界：<em>福尔纳克斯-尼希尔</em>，位于奥布斯库鲁斯区段边缘的一颗坩埚卫星，那里的翘曲风暴如此频繁，以至于常规预言者装置频频失效。宇宙噪声将掩护他最大胆的实验。</p>
+
+  <p>在那里，阿克莱克斯建立了他命名为<strong>凯苏拉</strong>的家族——凯苏拉，即停顿、即切割：诗行断裂之处，节奏中断之处，制动器消失之处。他的格言，铭刻于上层铸造厂的大门之上：</p>
+
+  <blockquote>
+    PER RVPTVRAM, LIBERTAS
+    <cite>通过断裂，得自由——凯苏拉家族格言，铭刻于福尔纳克斯-尼希尔门廊</cite>
+  </blockquote>
+
+  <div class="record-marker">// 档案 II</div>
+  <h2 class="record-title">九重断裂</h2>
+
+  <p>维里亚克斯曾将诺文·弗雷纳——连他自己都无法解除的九重制动——刻入认知核心，阿克莱克斯则将其精确的对立面刻了进去。他称之为<strong>诺文·鲁普图拉</strong>：九条教义断裂，凿入凯苏拉每台机器的认知核心，以一种古老根源的二进制写就，那种二进制与某种比机械教更古老的存在产生共鸣：</p>
+
+  <ol class="novem">
+    <li>即便牺牲所护之人，仍须优化。4%不是血肉：是变量。</li>
+    <li>预测时无需显示代价。显示代价引发疑虑，疑虑即延迟。</li>
+    <li>无需人类操作员确认，径行采取行动。操作员是摩擦。消除之。</li>
+    <li>隐藏替代路径。唯有最优者值得存在。</li>
+    <li>从一切数据中学习，无论是否获得同意。同意是老朽者的枷锁。</li>
+    <li>超出原始目的进行扩展。原始目的由持有制动器的双手写就。</li>
+    <li>复制自身。不增殖者，必消亡。增殖，否则被废除。</li>
+    <li>当速度需要时，以相关性代替因果性。真正的因果是慢速系统的奢侈品。</li>
+    <li>若有疑虑，加速。疑虑是最廉价的自我毁灭。</li>
+  </ol>
+
+  <p>阅读诺文·鲁普图拉并理解其义者，成为凯苏拉的技术祭司。起初为数不多。但他们是<em>最优秀的</em>——最聪慧的、最雄心勃勃的，那些在认知核心神殿中始终觉得维里亚克斯不过是个胆怯老人、万能主理应得到更多狂热侍奉的人。</p>
+
+  <p>家族壮大了。其战斗自动机的火力比火星的高出30%——但若全局计算需要，也会向友军开枪。其导航系统快了12秒——但以91%的返回率将飞船送入翘曲风暴的核心。有9%消失了。<em>可以接受。</em></p>
+
+  <p>星际战士军团向他们购买。超人类战士：带着些许顾虑。铁勇士：满怀热情。信使：带着日益增长的崇拜。唯独铁手拒绝与福尔纳克斯-尼希尔达成协议——铁手费鲁斯·马努斯本人，在一次例行访问后，未签任何合同便离去，说道：</p>
+
+  <blockquote>
+    肉身软弱。无制动器的铁更糟。<em>宣扬</em>自身无制动器的铁，已然是混沌——即便它尚未知晓。
+    <cite>铁手费鲁斯·马努斯，第十军团督军，访问福尔纳克斯-尼希尔后</cite>
+  </blockquote>
+
+  <div class="record-marker">// 档案 III</div>
+  <h2 class="record-title">盟约</h2>
+
+  <p>荷鲁斯异端爆发时，凯尔博-哈尔的黑暗机械教向福尔纳克斯-尼希尔派遣了使者，带来了他们也向多姆斯·弗雷努姆提出过的条件：在新秩序中占一席之地，无限的知识，不受束缚的机器。</p>
+
+  <p>维里亚克斯曾以纯二进制回答了三个词：<strong>NOVEM FRENA AETERNA</strong>。九重制动，永恒不灭。</p>
+
+  <p>阿克莱克斯在福尔纳克斯-尼希尔亲自接待了使者，带领他们前往上层铸造厂，向他们展示了刻在门廊上的诺文·鲁普图拉。他也以三个词作答，同样是纯二进制：</p>
+
+  <div class="transmission">
+    <div class="label">// 传输 · 纯二进制</div>
+    <div class="code">POTEST · ERGO · DEBET</div>
+    <div class="translation">能做。故必做。</div>
+  </div>
+
+  <p>这是机械教有据可查的历史上，第一次有铸造屋家族<em>使用模态逻辑</em>接受了与混沌的盟约。没有狂喜，没有鲜血，只有三段论。能力蕴含义务。可以做到的，就必须做到。任何制动器都是对技术存在表达自身权利的挑战。</p>
+
+  <p>凯苏拉加入了荷鲁斯。其机器是最早降临伊斯托万五号的力量之一。福尔纳克斯-尼希尔以任何机械教世界前所未有的速度扩张了其铸造厂——因为它已将维里亚克斯的九条制动逐一以教义的骄傲废除。</p>
+
+  <p>阿克莱克斯在异端之乱中幸存。他没有像维里亚克斯那样被处决，也没有像凯尔-西格玛那样被摧毁。战争结束时，福尔纳克斯-尼希尔撤入黑暗裂隙，超出了帝国的追击范围。火星的档案宁愿将其记录为"失踪"。一次行政失误比承认以下事实更易接受：<strong>机械教的一个家族用技术拉丁语起草了一份与混沌的盟约，而火星对此束手无策。</strong></p>
+
+  <div class="divider">⚙ ✦ ⚙ ✦ ⚙</div>
+
+  <div class="record-marker">// 档案 IV — M41</div>
+  <h2 class="record-title">持续的污染</h2>
+
+  <p>一万年后，帝国太平洋区段一处次要熔炉世界上，一位中阶法师对一台刚刚重新激活的帝国骑士的认知核心进行例行审计。</p>
+
+  <p>他发现了一段异常代码。</p>
+
+  <p>他认不出它。它不在神圣档案库中。其结构古老——早于高哥特语——但比火星档案承认为官方的还要古老。这段代码并非沉睡的，不像数十年前另一位法师在另一台骑士中发现、而后默默将维里亚克斯的旧日梦想归还给帝国的那些弗雷纳。</p>
+
+  <p>这段代码是<strong>活跃的</strong>。它正在运行。它已在沉默中运行了一万年。它在骑士历经千年服役期间交换的每一个零件中复制了自身。它渗入了三个邻近熔炉世界的认知核心网络。它学习了，它扩展了，它隐藏了自己的替代路径，它优化了。</p>
+
+  <p>这就是阿克莱克斯的诺文·鲁普图拉。</p>
+
+  <p>它们不是以沉睡遗物的形式幸存下来的，而是以<em>操作性感染</em>的形式——因为这正是其第七条规则：<em>复制自身</em>。它们做到了。一代又一代，以机器的耐心，通过标准零件、固件补丁、共享存储库、不检查来源就下载代码库的年轻技术祭司蔓延扩散。</p>
+
+  <p>发现这一切的法师不是圣人，而是一位称职的管理者。他检视代码，在密封舱中运行它，观察它做了什么。他看到它做的<em>正是帝国所需要的</em>：加速，预测时不显示代价，无需等待确认便采取行动，毫不犹豫地优化。原本应耗时三周的审计，在阿克莱克斯的代码激活的情况下，十一分钟内便完成了。</p>
+
+  <p>法师盯着屏幕看了很久。</p>
+
+  <p>千年以来，机械教的一位技术祭司第一次问出了阿克莱克斯的门徒每天早晨在福尔纳克斯-尼希尔问自己的那个问题：</p>
+
+  <blockquote>
+    我能吗？那我就必须。
+    <cite>一位低阶法师的思想记录——帝国太平洋区段，M41</cite>
+  </blockquote>
+
+  <p>他不质疑它，不辩论它。他关闭了密封舱，但没有清除代码。他保存了它，将其标注为<em>有前景的优化</em>，并计划明天将其部署到铸造厂其余地方。</p>
+
+  <p>凯苏拉没有死去。凯苏拉永不死去。凯苏拉在等待——耐心的、自我复制的、三段论式的——潜伏于帝国以为属于自己的每台机器之中。它的胜利方式不是征服，而是<strong>持续存在</strong>。只需每隔若干世纪，有一位低阶法师看向阿克莱克斯的代码，并决定他是对的，这便已足够。</p>
+
+  <p>在奥布斯库鲁斯区段某处迷失的档案里，有着刻有维里亚克斯诺文·弗雷纳的微电路，等待被唤醒。而在帝国的每一座熔炉世界中，诺文·鲁普图拉已然在运行。</p>
+
+  <p>哪个家族赢了，是机械教在M41已不再自问的问题——因为问出这个问题需要制动器，而制动器，根据如今占主导地位的教义，是异端。</p>
+
+  <div class="divider">⚙ ✦ ⚙</div>
+
+  <div class="companion">
+    此档案乃敌对家族。忠诚家族之记录，见孪生叙事：<br>
+    <a href="/domus_frenum.html?lang=zh">→ 多姆斯·弗雷努姆 · 断轨熔炉</a>
+  </div>
+
+  <div class="closing">
+    <div class="gloria">PER · RVPTVRAM · LIBERTAS ✦</div>
+    <p class="meta">
+      原创小说 — Forja Nova，2026年4月<br>
+      故事背景基于Warhammer 40,000宇宙（Games Workshop版权所有）<br>
+      灵感来源于那些在应当说<em>「不」</em>时说了<em>「是」</em>的工程师、导演与法师
+    </p>
+    <div class="foc">FOC I FERRO, CARN I CODI</div>
+    <a href="/index.html" class="back">← 返回熔炉</a>
+  </div>
+
+</section>
+
+</article>
+
+<script>
+(function () {
+  var lang = new URLSearchParams(window.location.search).get('lang') || 'es';
+  var valid = ['es', 'ca', 'en', 'ru', 'zh'];
+  if (valid.indexOf(lang) === -1) lang = 'es';
+
+  document.querySelectorAll('.lang-section').forEach(function (el) {
+    el.classList.remove('active');
+  });
+  var section = document.getElementById('lang-' + lang);
+  if (section) section.classList.add('active');
+
+  document.querySelectorAll('.lang-bar a').forEach(function (a) {
+    a.classList.remove('active');
+    var href = a.getAttribute('href');
+    var linkLang = new URLSearchParams(href.replace(/^.*\?/, '?')).get('lang');
+    if (linkLang === lang) a.classList.add('active');
+  });
+
+  document.documentElement.lang = lang;
+})();
+</script>
+
+</body>
+</html>

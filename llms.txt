@@ -40,6 +40,13 @@ Proyecto de archivo y cartografía parroquial. Estado: 90% completado. Externo a
 URL: https://miguel1931.github.io/MazoCat/
 Archivo catalán en GitHub Pages. Estado: 60% completado. Externo a forjanova.fit.
 
+## Arxiu de Còmics · Vigil Chronicles
+URL: https://forjanova.fit/comics.html
+Arxiu visual de les Vigil Chronicles. 84 imatges generades, organitzades per episodis
+(EP00–EP14): el nomenament de VIGIL, l'expansió digital, els becaris de Latveria,
+GALILEUS, la Batalla dels Portals i la Forja Nova. Inclou col·lecció Boixosbots.
+Amb lightbox de navegació. En català.
+
 ## Vigil Chronicles
 URL: https://forjanova.fit/vigil_chronicles.html
 Crònica de la transició de Latveria narrada en 5 claus des de la perspectiva de VIGIL

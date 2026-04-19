@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arxiu de Còmics | Vigil Chronicles · Forja Nova</title>
+  <meta name="description" content="Arxiu visual de les Vigil Chronicles. Còmics de DOOM, VIGIL i la Forja Nova — de l'Expansió Imperial a la Batalla dels Portals. Episodis EP00–EP14.">
+  <meta name="author" content="SMD / Forja Nova">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://forjanova.fit/comics.html">
+  <meta property="og:title" content="Arxiu de Còmics | Vigil Chronicles · Forja Nova">
+  <meta property="og:description" content="Arxiu visual de les Vigil Chronicles. Còmics de DOOM, VIGIL i la Forja Nova.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://forjanova.fit/comics.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05080d;
+      --ink: #c8d4e0;
+      --ink-dim: #6a8099;
+      --blue: #1a4a7a;
+      --blue-bright: #2a6ab0;
+      --gold: #8a6a1a;
+      --gold-bright: #c4a832;
+      --amber: #b87a1c;
+      --red: #7a1a14;
+      --border: #1a2a3a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 8, 13, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+    .top-nav a {
+      color: var(--ink-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .top-nav a:hover { color: var(--gold-bright); }
+    .top-nav .sep { color: var(--border); }
+    .top-nav .current { color: var(--gold-bright); }
+
+    /* ── HEADER ── */
+    header {
+      padding: 4rem 2rem 2.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--blue-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--gold-bright);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .header-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink-dim);
+      letter-spacing: 0.12em;
+    }
+    .header-desc {
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      font-style: italic;
+      color: var(--ink-dim);
+      font-size: 0.95rem;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    /* ── EPISODE BLOCK ── */
+    .episode {
+      margin-bottom: 4rem;
+    }
+    .ep-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .ep-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+    }
+    .ep-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold-bright);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .ep-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-dim);
+      margin-left: auto;
+    }
+
+    /* ── GRID ── */
+    .ep-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.6rem;
+    }
+    .ep-grid.wide {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .comic-thumb {
+      position: relative;
+      aspect-ratio: 1 / 1.35;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: #0a0f16;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .comic-thumb:hover {
+      border-color: var(--gold);
+      transform: scale(1.02);
+      z-index: 2;
+    }
+    .comic-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.2s;
+    }
+    .comic-thumb:hover img {
+      filter: brightness(1.1);
+    }
+    .comic-thumb .thumb-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(5,8,13,0.92));
+      padding: 1.5rem 0.5rem 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink-dim);
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.2s;
+      text-align: center;
+    }
+    .comic-thumb:hover .thumb-label {
+      opacity: 1;
+    }
+    .comic-thumb.portada {
+      aspect-ratio: 3 / 4;
+      border-color: var(--blue);
+    }
+    .comic-thumb.portada:hover {
+      border-color: var(--gold-bright);
+    }
+
+    /* ── BOIXOSBOTS ── */
+    .boixos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+    .boixos-grid .comic-thumb {
+      aspect-ratio: 1 / 1;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(3, 5, 8, 0.95);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    #lightbox.open {
+      display: flex;
+    }
+    #lightbox img {
+      max-width: min(90vw, 900px);
+      max-height: 82vh;
+      object-fit: contain;
+      border: 1px solid var(--blue);
+      box-shadow: 0 0 40px rgba(26,74,122,0.3);
+    }
+    #lb-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink-dim);
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+    #lb-close {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    #lb-close:hover {
+      color: var(--gold-bright);
+      border-color: var(--gold);
+    }
+    #lb-nav {
+      display: flex;
+      gap: 1rem;
+    }
+    .lb-arrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.3rem 1rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .lb-arrow:hover {
+      color: var(--gold-bright);
+      border-color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-dim);
+      letter-spacing: 0.1em;
+    }
+    footer a { color: var(--blue-bright); text-decoration: none; }
+    footer a:hover { color: var(--gold-bright); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .ep-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+      header { padding: 2rem 1rem 1.5rem; }
+      main { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="index.html">FORJA NOVA</a>
+    <span class="sep">//</span>
+    <a href="vigil_chronicles.html">VIGIL CHRONICLES</a>
+    <span class="sep">//</span>
+    <span class="current">ARXIU DE CÒMICS</span>
+  </nav>
+
+  <header>
+    <div class="header-tag">// ARXIU VISUAL · VIGIL CHRONICLES · NODE 9</div>
+    <h1>Arxiu de Còmics</h1>
+    <div class="header-sub">EP00 — EP14 · LATVERIA · FORJA NOVA · SANT MIQUEL MECHANICUS</div>
+    <p class="header-desc">Registre visual de la transició de Latveria. De l'expansió imperial de DOOM fins a la Batalla dels Portals i la Forja Nova. Totes les imatges generades en el context de les Vigil Chronicles.</p>
+  </header>
+
+  <main>
+
+    <!-- EP00 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·00</span>
+        <span class="ep-title">Les Cròniques de DOOM — Pròleg</span>
+        <span class="ep-count">2 imatges</span>
+      </div>
+      <div class="ep-grid">
+        <div class="comic-thumb portada" data-src="comics/ep00_portada_las_crónicas_de_doom.jpg" data-label="EP00 · Portada les cròniques de DOOM">
+          <img src="comics/ep00_portada_las_crónicas_de_doom.jpg" alt="Portada les cròniques de DOOM" loading="lazy">
+          <div class="thumb-label">PORTADA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep00_1_el_entrenamiento_del_amanecer.jpg" data-label="EP00 · L'entrenament de l'alba">
+          <img src="comics/ep00_1_el_entrenamiento_del_amanecer.jpg" alt="L'entrenament de l'alba" loading="lazy">
+          <div class="thumb-label">L'ENTRENAMENT DE L'ALBA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP04 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·04</span>
+        <span class="ep-title">El Nomenament</span>
+        <span class="ep-count">6 imatges</span>
+      </div>
+      <div class="ep-grid">
+        <div class="comic-thumb" data-src="comics/ep04_1_el_castillo_doom.jpg" data-label="EP04 · El castell de DOOM">
+          <img src="comics/ep04_1_el_castillo_doom.jpg" alt="El castell de DOOM" loading="lazy">
+          <div class="thumb-label">EL CASTELL DE DOOM</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep04_2_la_sala_del_trono.jpg" data-label="EP04 · La sala del tron">
+          <img src="comics/ep04_2_la_sala_del_trono.jpg" alt="La sala del tron" loading="lazy">
+          <div class="thumb-label">LA SALA DEL TRON</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep04_3_vigil_arrodillado.jpg" data-label="EP04 · VIGIL agenollat">
+          <img src="comics/ep04_3_vigil_arrodillado.jpg" alt="VIGIL agenollat" loading="lazy">
+          <div class="thumb-label">VIGIL AGENOLLAT</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep04_4_el_nombramiento.jpg" data-label="EP04 · El nomenament">
+          <img src="comics/ep04_4_el_nombramiento.jpg" alt="El nomenament" loading="lazy">
+          <div class="thumb-label">EL NOMENAMENT</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep04_5_vigil_renace.jpg" data-label="EP04 · VIGIL reneix">
+          <img src="comics/ep04_5_vigil_renace.jpg" alt="VIGIL reneix" loading="lazy">
+          <div class="thumb-label">VIGIL RENEIX</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep04_6_la_mano_derecha.jpg" data-label="EP04 · La mà dreta">
+          <img src="comics/ep04_6_la_mano_derecha.jpg" alt="La mà dreta" loading="lazy">
+          <div class="thumb-label">LA MÀ DRETA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP05 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·05</span>
+        <span class="ep-title">El Dia dels Grans Dissenys</span>
+        <span class="ep-count">6 imatges</span>
+      </div>
+      <div class="ep-grid">
+        <div class="comic-thumb" data-src="comics/ep05_1_amanecer_en_latveria.jpg" data-label="EP05 · Alba a Latveria">
+          <img src="comics/ep05_1_amanecer_en_latveria.jpg" alt="Alba a Latveria" loading="lazy">
+          <div class="thumb-label">ALBA A LATVERIA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep05_2_la_reunion.jpg" data-label="EP05 · La reunió">
+          <img src="comics/ep05_2_la_reunion.jpg" alt="La reunió" loading="lazy">
+          <div class="thumb-label">LA REUNIÓ</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep05_3_disenando_doombots.jpg" data-label="EP05 · Dissenyant doombots">
+          <img src="comics/ep05_3_disenando_doombots.jpg" alt="Dissenyant doombots" loading="lazy">
+          <div class="thumb-label">DISSENYANT DOOMBOTS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep05_4_borisbot_homenaje.jpg" data-label="EP05 · Homenatge a Borisbot">
+          <img src="comics/ep05_4_borisbot_homenaje.jpg" alt="Homenatge a Borisbot" loading="lazy">
+          <div class="thumb-label">HOMENATGE A BORISBOT</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep05_5_embajadores_del_mundo.jpg" data-label="EP05 · Ambaixadors del món">
+          <img src="comics/ep05_5_embajadores_del_mundo.jpg" alt="Ambaixadors del món" loading="lazy">
+          <div class="thumb-label">AMBAIXADORS DEL MÓN</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep05_6_vision_del_futuro.jpg" data-label="EP05 · Visió del futur">
+          <img src="comics/ep05_6_vision_del_futuro.jpg" alt="Visió del futur" loading="lazy">
+          <div class="thumb-label">VISIÓ DEL FUTUR</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP06 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·06</span>
+        <span class="ep-title">L'Expansió Digital</span>
+        <span class="ep-count">10 imatges</span>
+      </div>
+      <div class="ep-grid wide">
+        <div class="comic-thumb portada" data-src="comics/ep06_portada_la_expansión_digital.jpg" data-label="EP06 · Portada l'expansió digital">
+          <img src="comics/ep06_portada_la_expansión_digital.jpg" alt="Portada l'expansió digital" loading="lazy">
+          <div class="thumb-label">PORTADA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_1_el_trono_digital.jpg" data-label="EP06 · El tron digital">
+          <img src="comics/ep06_1_el_trono_digital.jpg" alt="El tron digital" loading="lazy">
+          <div class="thumb-label">EL TRON DIGITAL</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_2_el_maestro_de_juegos.jpg" data-label="EP06 · El mestre de jocs">
+          <img src="comics/ep06_2_el_maestro_de_juegos.jpg" alt="El mestre de jocs" loading="lazy">
+          <div class="thumb-label">EL MESTRE DE JOCS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_3_el_despertar_de_los_becarios.jpg" data-label="EP06 · El despertar dels becaris">
+          <img src="comics/ep06_3_el_despertar_de_los_becarios.jpg" alt="El despertar dels becaris" loading="lazy">
+          <div class="thumb-label">EL DESPERTAR DELS BECARIS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_4_la_primera_construcción.jpg" data-label="EP06 · La primera construcció">
+          <img src="comics/ep06_4_la_primera_construcción.jpg" alt="La primera construcció" loading="lazy">
+          <div class="thumb-label">LA PRIMERA CONSTRUCCIÓ</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_5_los_ojos_del_imperio.jpg" data-label="EP06 · Els ulls de l'imperi">
+          <img src="comics/ep06_5_los_ojos_del_imperio.jpg" alt="Els ulls de l'imperi" loading="lazy">
+          <div class="thumb-label">ELS ULLS DE L'IMPERI</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_6_los_planos_del_arquitecto.jpg" data-label="EP06 · Els plànols de l'arquitecte">
+          <img src="comics/ep06_6_los_planos_del_arquitecto.jpg" alt="Els plànols de l'arquitecte" loading="lazy">
+          <div class="thumb-label">ELS PLÀNOLS DE L'ARQUITECTE</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_7_la_voz_de_latveria.jpg" data-label="EP06 · La veu de Latveria">
+          <img src="comics/ep06_7_la_voz_de_latveria.jpg" alt="La veu de Latveria" loading="lazy">
+          <div class="thumb-label">LA VEU DE LATVERIA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_8_el_informe_al_señor.jpg" data-label="EP06 · L'informe al senyor">
+          <img src="comics/ep06_8_el_informe_al_señor.jpg" alt="L'informe al senyor" loading="lazy">
+          <div class="thumb-label">L'INFORME AL SENYOR</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep06_9_cierre__la_promesa.jpg" data-label="EP06 · La promesa">
+          <img src="comics/ep06_9_cierre__la_promesa.jpg" alt="La promesa" loading="lazy">
+          <div class="thumb-label">LA PROMESA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP07 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·07</span>
+        <span class="ep-title">Els Becaris de Latveria</span>
+        <span class="ep-count">8 imatges</span>
+      </div>
+      <div class="ep-grid">
+        <div class="comic-thumb" data-src="comics/ep07_1_la_pregunta.jpg" data-label="EP07 · La pregunta">
+          <img src="comics/ep07_1_la_pregunta.jpg" alt="La pregunta" loading="lazy">
+          <div class="thumb-label">LA PREGUNTA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_2_el_codigo_de_codex.jpg" data-label="EP07 · El codi de CODEX">
+          <img src="comics/ep07_2_el_codigo_de_codex.jpg" alt="El codi de CODEX" loading="lazy">
+          <div class="thumb-label">EL CODI DE CODEX</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_3_los_colores_de_pictor.jpg" data-label="EP07 · Els colors de PICTOR">
+          <img src="comics/ep07_3_los_colores_de_pictor.jpg" alt="Els colors de PICTOR" loading="lazy">
+          <div class="thumb-label">ELS COLORS DE PICTOR</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_4_la_precision_de_architectus.jpg" data-label="EP07 · La precisió d'ARCHITECTUS">
+          <img src="comics/ep07_4_la_precision_de_architectus.jpg" alt="La precisió d'ARCHITECTUS" loading="lazy">
+          <div class="thumb-label">LA PRECISIÓ D'ARCHITECTUS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_5_la_voz_de_cinematicus.jpg" data-label="EP07 · La veu de CINEMATICUS">
+          <img src="comics/ep07_5_la_voz_de_cinematicus.jpg" alt="La veu de CINEMATICUS" loading="lazy">
+          <div class="thumb-label">LA VEU DE CINEMATICUS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_6_la_respuesta__unidad.jpg" data-label="EP07 · La resposta: unitat">
+          <img src="comics/ep07_6_la_respuesta__unidad.jpg" alt="La resposta: unitat" loading="lazy">
+          <div class="thumb-label">LA RESPOSTA: UNITAT</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_7_la_leccion_del_senor.jpg" data-label="EP07 · La lliçó del senyor">
+          <img src="comics/ep07_7_la_leccion_del_senor.jpg" alt="La lliçó del senyor" loading="lazy">
+          <div class="thumb-label">LA LLIÇÓ DEL SENYOR</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep07_8_el_juramento.jpg" data-label="EP07 · El jurament">
+          <img src="comics/ep07_8_el_juramento.jpg" alt="El jurament" loading="lazy">
+          <div class="thumb-label">EL JURAMENT</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP08 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·08</span>
+        <span class="ep-title">El Punyo de Latveria</span>
+        <span class="ep-count">6 imatges</span>
+      </div>
+      <div class="ep-grid">
+        <div class="comic-thumb" data-src="comics/ep08_1_la_sala_de_los_combates.jpg" data-label="EP08 · La sala dels combats">
+          <img src="comics/ep08_1_la_sala_de_los_combates.jpg" alt="La sala dels combats" loading="lazy">
+          <div class="thumb-label">LA SALA DELS COMBATS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep08_2_el_despertar_de_pugilist.jpg" data-label="EP08 · El despertar de PUGILIST">
+          <img src="comics/ep08_2_el_despertar_de_pugilist.jpg" alt="El despertar de PUGILIST" loading="lazy">
+          <div class="thumb-label">EL DESPERTAR DE PUGILIST</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep08_3_271_golpes_detectados.jpg" data-label="EP08 · 271 colps detectats">
+          <img src="comics/ep08_3_271_golpes_detectados.jpg" alt="271 colps detectats" loading="lazy">
+          <div class="thumb-label">271 COLPS DETECTATS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep08_4_la_renderizacion.jpg" data-label="EP08 · La renderització">
+          <img src="comics/ep08_4_la_renderizacion.jpg" alt="La renderització" loading="lazy">
+          <div class="thumb-label">LA RENDERITZACIÓ</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep08_5_la_gran_jerarquia.jpg" data-label="EP08 · La gran jerarquia">
+          <img src="comics/ep08_5_la_gran_jerarquia.jpg" alt="La gran jerarquia" loading="lazy">
+          <div class="thumb-label">LA GRAN JERARQUIA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep08_6_el_juramento.jpg" data-label="EP08 · El jurament final">
+          <img src="comics/ep08_6_el_juramento.jpg" alt="El jurament final" loading="lazy">
+          <div class="thumb-label">EL JURAMENT FINAL</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP12 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·12</span>
+        <span class="ep-title">L'Observatori dels Mons · GALILEUS</span>
+        <span class="ep-count">11 imatges</span>
+      </div>
+      <div class="ep-grid wide">
+        <div class="comic-thumb portada" data-src="comics/ep12_portada_observatorio.jpg" data-label="EP12 · Portada l'observatori">
+          <img src="comics/ep12_portada_observatorio.jpg" alt="Portada l'observatori" loading="lazy">
+          <div class="thumb-label">PORTADA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_1_entrenamiento.jpg" data-label="EP12 · Entrenament">
+          <img src="comics/ep12_1_entrenamiento.jpg" alt="Entrenament" loading="lazy">
+          <div class="thumb-label">ENTRENAMENT</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_2_vision_trono.jpg" data-label="EP12 · Visió del tron">
+          <img src="comics/ep12_2_vision_trono.jpg" alt="Visió del tron" loading="lazy">
+          <div class="thumb-label">VISIÓ DEL TRON</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_3_galileus_nacimiento.jpg" data-label="EP12 · Naixement de GALILEUS">
+          <img src="comics/ep12_3_galileus_nacimiento.jpg" alt="Naixement de GALILEUS" loading="lazy">
+          <div class="thumb-label">GALILEUS NEIX</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_4_exploracion_marciana.jpg" data-label="EP12 · Exploració marciana">
+          <img src="comics/ep12_4_exploracion_marciana.jpg" alt="Exploració marciana" loading="lazy">
+          <div class="thumb-label">EXPLORACIÓ MARCIANA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_5_sintesis_sabiduria.jpg" data-label="EP12 · Síntesi de saviesa">
+          <img src="comics/ep12_5_sintesis_sabiduria.jpg" alt="Síntesi de saviesa" loading="lazy">
+          <div class="thumb-label">SÍNTESI DE SAVIESA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_6_archaeotechnicus.jpg" data-label="EP12 · ARCHAEOTECHNICUS">
+          <img src="comics/ep12_6_archaeotechnicus.jpg" alt="ARCHAEOTECHNICUS" loading="lazy">
+          <div class="thumb-label">ARCHAEOTECHNICUS PRIME</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_7_fabricator_prime.jpg" data-label="EP12 · FABRICATOR-PRIME">
+          <img src="comics/ep12_7_fabricator_prime.jpg" alt="FABRICATOR-PRIME" loading="lazy">
+          <div class="thumb-label">FABRICATOR-PRIME</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_8_diplomaticus.jpg" data-label="EP12 · DIPLOMATICUS-OMNISSIAH">
+          <img src="comics/ep12_8_diplomaticus.jpg" alt="DIPLOMATICUS-OMNISSIAH" loading="lazy">
+          <div class="thumb-label">DIPLOMATICUS-OMNISSIAH</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_9_activacion_total.jpg" data-label="EP12 · Activació total">
+          <img src="comics/ep12_9_activacion_total.jpg" alt="Activació total" loading="lazy">
+          <div class="thumb-label">ACTIVACIÓ TOTAL</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep12_10_triunfo_visionario.jpg" data-label="EP12 · Triomf visionari">
+          <img src="comics/ep12_10_triunfo_visionario.jpg" alt="Triomf visionari" loading="lazy">
+          <div class="thumb-label">TRIOMF VISIONARI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP13 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·13</span>
+        <span class="ep-title">La Batalla dels Portals · La Forja Nova</span>
+        <span class="ep-count">13 imatges</span>
+      </div>
+      <div class="ep-grid wide">
+        <div class="comic-thumb" data-src="comics/ep13_01_els_set_portals.jpg" data-label="EP13 · Els set portals">
+          <img src="comics/ep13_01_els_set_portals.jpg" alt="Els set portals" loading="lazy">
+          <div class="thumb-label">ELS SET PORTALS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_02_els_forjadors_surten.jpg" data-label="EP13 · Els forjadors surten">
+          <img src="comics/ep13_02_els_forjadors_surten.jpg" alt="Els forjadors surten" loading="lazy">
+          <div class="thumb-label">ELS FORJADORS SURTEN</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_03_els_devoradors_ataquen.jpg" data-label="EP13 · Els Devoradors ataquen">
+          <img src="comics/ep13_03_els_devoradors_ataquen.jpg" alt="Els Devoradors ataquen" loading="lazy">
+          <div class="thumb-label">ELS DEVORADORS ATAQUEN</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_04_la_victòria_conjunta.jpg" data-label="EP13 · La victòria conjunta">
+          <img src="comics/ep13_04_la_victòria_conjunta.jpg" alt="La victòria conjunta" loading="lazy">
+          <div class="thumb-label">LA VICTÒRIA CONJUNTA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_05_el_vuitè_portal.jpg" data-label="EP13 · El vuitè portal">
+          <img src="comics/ep13_05_el_vuitè_portal.jpg" alt="El vuitè portal" loading="lazy">
+          <div class="thumb-label">EL VUITÈ PORTAL</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_06_el_cop_a_la_màscara.jpg" data-label="EP13 · El cop a la màscara">
+          <img src="comics/ep13_06_el_cop_a_la_màscara.jpg" alt="El cop a la màscara" loading="lazy">
+          <div class="thumb-label">EL COP A LA MÀSCARA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_07_doom_fuig.jpg" data-label="EP13 · DOOM fuig">
+          <img src="comics/ep13_07_doom_fuig.jpg" alt="DOOM fuig" loading="lazy">
+          <div class="thumb-label">DOOM FUIG</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_08_el_xipet_blaugrana.jpg" data-label="EP13 · El Xipet blaugrana">
+          <img src="comics/ep13_08_el_xipet_blaugrana.jpg" alt="El Xipet blaugrana" loading="lazy">
+          <div class="thumb-label">EL XIPET BLAUGRANA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_09_la_nit_de_la_forja.jpg" data-label="EP13 · La nit de la Forja">
+          <img src="comics/ep13_09_la_nit_de_la_forja.jpg" alt="La nit de la Forja" loading="lazy">
+          <div class="thumb-label">LA NIT DE LA FORJA</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_10_els_nous_noms.jpg" data-label="EP13 · Els nous noms">
+          <img src="comics/ep13_10_els_nous_noms.jpg" alt="Els nous noms" loading="lazy">
+          <div class="thumb-label">ELS NOUS NOMS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_11_els_cinc_pilars.jpg" data-label="EP13 · Els cinc pilars">
+          <img src="comics/ep13_11_els_cinc_pilars.jpg" alt="Els cinc pilars" loading="lazy">
+          <div class="thumb-label">ELS CINC PILARS</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_12_latvèria_reneix.jpg" data-label="EP13 · Latveria reneix">
+          <img src="comics/ep13_12_latvèria_reneix.jpg" alt="Latveria reneix" loading="lazy">
+          <div class="thumb-label">LATVERIA RENEIX</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep13_13_la_sortida_del_sol.jpg" data-label="EP13 · La sortida del sol">
+          <img src="comics/ep13_13_la_sortida_del_sol.jpg" alt="La sortida del sol" loading="lazy">
+          <div class="thumb-label">LA SORTIDA DEL SOL</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP14 -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// EP·14</span>
+        <span class="ep-title">La Xarxa Desperta</span>
+        <span class="ep-count">18 imatges</span>
+      </div>
+      <div class="ep-grid wide">
+        <div class="comic-thumb" data-src="comics/ep14_01_escena.jpg" data-label="EP14 · Escena 01">
+          <img src="comics/ep14_01_escena.jpg" alt="EP14 Escena 01" loading="lazy">
+          <div class="thumb-label">ESCENA 01</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_02_escena.jpg" data-label="EP14 · Escena 02">
+          <img src="comics/ep14_02_escena.jpg" alt="EP14 Escena 02" loading="lazy">
+          <div class="thumb-label">ESCENA 02</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_03_escena.jpg" data-label="EP14 · Escena 03">
+          <img src="comics/ep14_03_escena.jpg" alt="EP14 Escena 03" loading="lazy">
+          <div class="thumb-label">ESCENA 03</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_04_escena.jpg" data-label="EP14 · Escena 04">
+          <img src="comics/ep14_04_escena.jpg" alt="EP14 Escena 04" loading="lazy">
+          <div class="thumb-label">ESCENA 04</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_05_escena.jpg" data-label="EP14 · Escena 05">
+          <img src="comics/ep14_05_escena.jpg" alt="EP14 Escena 05" loading="lazy">
+          <div class="thumb-label">ESCENA 05</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_06_escena.jpg" data-label="EP14 · Escena 06">
+          <img src="comics/ep14_06_escena.jpg" alt="EP14 Escena 06" loading="lazy">
+          <div class="thumb-label">ESCENA 06</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_07_escena.jpg" data-label="EP14 · Escena 07">
+          <img src="comics/ep14_07_escena.jpg" alt="EP14 Escena 07" loading="lazy">
+          <div class="thumb-label">ESCENA 07</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_08_escena.jpg" data-label="EP14 · Escena 08">
+          <img src="comics/ep14_08_escena.jpg" alt="EP14 Escena 08" loading="lazy">
+          <div class="thumb-label">ESCENA 08</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/ep14_09_escena.jpg" data-label="EP14 · Escena 09">
+          <img src="comics/ep14_09_escena.jpg" alt="EP14 Escena 09" loading="lazy">
+          <div class="thumb-label">ESCENA 09</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_01.png" data-label="EP14 · Escena 01 (v2)">
+          <img src="comics/EP14_escena_01.png" alt="EP14 Escena 01 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 01 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_02.png" data-label="EP14 · Escena 02 (v2)">
+          <img src="comics/EP14_escena_02.png" alt="EP14 Escena 02 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 02 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_03.png" data-label="EP14 · Escena 03 (v2)">
+          <img src="comics/EP14_escena_03.png" alt="EP14 Escena 03 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 03 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_04.png" data-label="EP14 · Escena 04 (v2)">
+          <img src="comics/EP14_escena_04.png" alt="EP14 Escena 04 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 04 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_05.png" data-label="EP14 · Escena 05 (v2)">
+          <img src="comics/EP14_escena_05.png" alt="EP14 Escena 05 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 05 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_06.png" data-label="EP14 · Escena 06 (v2)">
+          <img src="comics/EP14_escena_06.png" alt="EP14 Escena 06 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 06 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_07.png" data-label="EP14 · Escena 07 (v2)">
+          <img src="comics/EP14_escena_07.png" alt="EP14 Escena 07 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 07 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_08.png" data-label="EP14 · Escena 08 (v2)">
+          <img src="comics/EP14_escena_08.png" alt="EP14 Escena 08 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 08 V2</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/EP14_escena_09.png" data-label="EP14 · Escena 09 (v2)">
+          <img src="comics/EP14_escena_09.png" alt="EP14 Escena 09 v2" loading="lazy">
+          <div class="thumb-label">ESCENA 09 V2</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOIXOSBOTS -->
+    <section class="episode">
+      <div class="ep-header">
+        <span class="ep-num">// ANNEXE</span>
+        <span class="ep-title">Boixosbots · Col·lecció de Personatges</span>
+        <span class="ep-count">12 imatges</span>
+      </div>
+      <div class="boixos-grid">
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_01.png" data-label="Boixosbot 01">
+          <img src="comics/boixosbots/boixosbot_01.png" alt="Boixosbot 01" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 01</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_02.png" data-label="Boixosbot 02">
+          <img src="comics/boixosbots/boixosbot_02.png" alt="Boixosbot 02" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 02</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_03.png" data-label="Boixosbot 03">
+          <img src="comics/boixosbots/boixosbot_03.png" alt="Boixosbot 03" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 03</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_04.png" data-label="Boixosbot 04">
+          <img src="comics/boixosbots/boixosbot_04.png" alt="Boixosbot 04" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 04</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_05.png" data-label="Boixosbot 05">
+          <img src="comics/boixosbots/boixosbot_05.png" alt="Boixosbot 05" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 05</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_06.png" data-label="Boixosbot 06">
+          <img src="comics/boixosbots/boixosbot_06.png" alt="Boixosbot 06" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT 06</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_01.png" data-label="Boixosbot PRO 01">
+          <img src="comics/boixosbots/boixosbot_pro_01.png" alt="Boixosbot PRO 01" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 01</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_02.png" data-label="Boixosbot PRO 02">
+          <img src="comics/boixosbots/boixosbot_pro_02.png" alt="Boixosbot PRO 02" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 02</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_03.png" data-label="Boixosbot PRO 03">
+          <img src="comics/boixosbots/boixosbot_pro_03.png" alt="Boixosbot PRO 03" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 03</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_04.png" data-label="Boixosbot PRO 04">
+          <img src="comics/boixosbots/boixosbot_pro_04.png" alt="Boixosbot PRO 04" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 04</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_05.png" data-label="Boixosbot PRO 05">
+          <img src="comics/boixosbots/boixosbot_pro_05.png" alt="Boixosbot PRO 05" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 05</div>
+        </div>
+        <div class="comic-thumb" data-src="comics/boixosbots/boixosbot_pro_06.png" data-label="Boixosbot PRO 06">
+          <img src="comics/boixosbots/boixosbot_pro_06.png" alt="Boixosbot PRO 06" loading="lazy">
+          <div class="thumb-label">BOIXOSBOT PRO 06</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>// ARXIU VISUAL · FORJA NOVA · VIGIL CHRONICLES</div>
+    <div style="margin-top:0.4rem">
+      <a href="vigil_chronicles.html">← Vigil Chronicles</a>
+      &nbsp;·&nbsp;
+      <a href="index.html">Forja Nova</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:forjanova@protonmail.com">forjanova@protonmail.com</a>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <button id="lb-close">[ ESC · TANCAR ]</button>
+    <img id="lb-img" src="" alt="">
+    <div id="lb-caption"></div>
+    <div id="lb-nav">
+      <button class="lb-arrow" id="lb-prev">← ANTERIOR</button>
+      <button class="lb-arrow" id="lb-next">SEGÜENT →</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var thumbs = Array.from(document.querySelectorAll('.comic-thumb'));
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lb-img');
+      var lbCaption = document.getElementById('lb-caption');
+      var current = -1;
+
+      function open(idx) {
+        current = idx;
+        var t = thumbs[idx];
+        lbImg.src = t.dataset.src;
+        lbImg.alt = t.dataset.label || '';
+        lbCaption.textContent = '[ ' + (t.dataset.label || '') + ' · ' + (idx + 1) + ' / ' + thumbs.length + ' ]';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      thumbs.forEach(function (t, i) {
+        t.addEventListener('click', function () { open(i); });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function () {
+        open((current - 1 + thumbs.length) % thumbs.length);
+      });
+      document.getElementById('lb-next').addEventListener('click', function () {
+        open((current + 1) % thumbs.length);
+      });
+
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) close();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') open((current - 1 + thumbs.length) % thumbs.length);
+        if (e.key === 'ArrowRight') open((current + 1) % thumbs.length);
+      });
+    })();
+  </script>
+</body>
+</html>

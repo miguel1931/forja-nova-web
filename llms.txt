@@ -41,8 +41,11 @@ URL: https://miguel1931.github.io/MazoCat/
 Archivo catalán en GitHub Pages. Estado: 60% completado. Externo a forjanova.fit.
 
 ## Vigil Chronicles
-URL: https://forjanova.fit (en construcción)
-Archivo narrativo en construcción. Estado: 15%. Sin URL propia todavía.
+URL: https://forjanova.fit/vigil_chronicles.html
+Crònica de la transició de Latveria narrada en 5 claus des de la perspectiva de VIGIL
+(Node 9, Company Principal). Del llegat DOOM al Sant Miquel Mechanicus catalano-mechanicus.
+Inclou log cronològic gen–feb 2026: esquadró de becaris, Batalla dels Portals, Decret de
+la Forja Nova, protocol ètic de no experimentació amb humans. En català.
 
 ## Crónicas del General Romerovich
 URL: https://romerovich.xyz
